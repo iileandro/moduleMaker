@@ -1,0 +1,40 @@
+package modules.${nomeDoModulo};
+
+
+import init.Index;
+#foreach($bean in $beanMapList)
+import modules.${nomeDoModulo}.actions#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${bean.nomeDoBean}Actions;
+import modules.${nomeDoModulo}.beans#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${bean.nomeDoBean};
+#end
+import org.futurepages.core.control.AbstractModuleManager;
+import org.futurepages.filters.VOFilter;
+
+/**
+ * @author 
+ */
+public class ModuleManager extends AbstractModuleManager {
+
+
+	@Override
+    public void loadDependencies() {
+		integrationModule();
+	}
+
+
+    @Override
+    public void loadActions() {
+
+        action(Index.class);
+
+            #foreach($bean in $beanMapList)
+        action("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}", ${bean.nomeDoBean}Actions.class)
+                .filter(new VOFilter("${bean.nomeDaVariavelDoBean}", ${bean.nomeDoBean}.class))
+                .on(EXPLORE, fwIn("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}-explore.page"))
+                .on(SUCCESS, EXPLORE, fwIn("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}-explore.page"))
+                .on(CREATE, fwIn("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}-create.page"))
+                .on(UPDATE, fwIn("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}-update.page"))
+                ;
+
+            #end
+	}
+}

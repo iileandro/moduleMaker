@@ -1,0 +1,27 @@
+package modules.${nomeDoModulo}.dao#if($nomeDoSubmodulo).$nomeDoSubmodulo#end;
+
+import java.util.List;
+import modules.${nomeDoModulo}.beans#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${nomeDoBean};
+import org.futurepages.core.pagination.PaginationSlice;
+import org.futurepages.core.persistence.Dao;
+
+/**
+ *
+ * @author 
+ */
+public class ${nomeDoBean}Dao extends Dao {
+
+        public static ${nomeDoBean} getBy${atributoChaveCapitalized}(long ${atributoChave}) {
+		return Dao.get(${nomeDoBean}.class, ${atributoChave});
+	}
+
+	public static List<${nomeDoBean}> list${nomeDoBean}(){
+		return Dao.list(${nomeDoBean}.class, null, null);
+	}
+
+	public static PaginationSlice<${nomeDoBean}> paginateList(int pageNum, int pageSize, String conteudoBusca) {
+		return Dao.paginationSlice(pageNum, pageSize, ${nomeDoBean}.class, null, null);
+	}
+
+}
+

@@ -1,0 +1,82 @@
+<%@taglib uri="futurepagesApp" prefix="fpg" %>
+
+<div id="pagePath" class="w100">
+	<span>${nomeDoModuloCapitalized}</span>
+	<span class="raquo"></span>
+	<span class="bold">${nomeDoBean}</span>
+</div>
+<div class="conteudo w100">
+	<jsp:include page="/messages/success.jsp" />
+	<div class="linkBox floatRight">
+		<a href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=create">Cadastrar Novo ${nomeDoBean}</a>
+	</div>
+	<h1>Gerência de ${nomeDoBean}</h1>
+
+	<form method="post" action="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}-explore">
+		<div class="gridRow">
+			<div class="gridColumn grid_18">
+				<fpg:inputText name="conteudoBusca" defaultText="filtrar contendo as palavras" />
+			</div>
+			<div class="gridColumn grid_2">
+				<button type="submit" onclick="stayDisabled(this);">Filtrar</button>
+			</div>
+		</div>
+		&nbsp;
+
+	</form>
+	<div class="clearBoth"></div>
+
+	<fpg:set var="paginationDescriptor">
+		<fpg:paginationDescriptor plural="${nomeDoBean}s" singular="${nomeDoBean}"  zero="Nenhum ${nomeDoBean}" sizes="50,100,200,400" onchange="setPageSize(this)" />
+	</fpg:set>
+	<fpg:pagination url="/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}-explore/" params="?pageSize=${pageSize}&conteudoBusca=${conteudoBusca}" descriptor="${paginationDescriptor}">
+		<table width="100%" class="plc-table">
+                    <thead>
+                        #foreach($att in $atributoList)
+                            #if($atributoChave != $att.nome)
+                        <th>${att.nomeCapitalized}</th>
+                            #end
+                        #end
+                        <th>Gerência</th>
+                    </thead>
+                    <tbody>
+			<fpg:list value="pagList${nomeDoBean}">
+                            <fpg:isEmpty>
+						<tr>
+                                                        #set($quantColunas = $atributoList.size() - 1 )
+							<td colspan="$quantColunas" style="text-align:center;height:80px;height: 30px;vertical-align:middle">
+									Nenhum item encontrado.
+							</td>
+						</tr>
+					</fpg:isEmpty>
+					<fpg:loop counter="index" var="${nomeDaVariavelDoBean}">
+						<tr <fpg:isEven test="index">class="evenTr"</fpg:isEven>>
+                                                    #foreach($att in $atributoList)
+                                                        #if($atributoChave != $att.nome)
+							<td >
+                                                            #if($att.tipo == "Calendar")
+                                                                <fpg:valueFormatter object="${${nomeDoBeanUnCapitalized}.${att.nome}}" formatter="dateTime"/>
+                                                            #else
+                                                                ${${nomeDoBeanUnCapitalized}.${att.nome}}
+                                                            #end
+							</td>
+                                                        #end
+                                                    #end
+						    
+						    <td class="center" title="Editar">
+								<a title="Editar" href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=update&${atributoChave}=${${nomeDoBeanUnCapitalized}.${atributoChave}}"><img alt="" src="<fpg:themePath/>/icons/edit.png" border="0"/></a>
+							</td>
+										
+						</tr>
+					</fpg:loop>
+				</fpg:list>
+			</tbody>
+		</table>
+	</fpg:pagination>
+</div>
+
+<script type="text/javascript">
+	function setPageSize(elemento){
+		document.location.href = '<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}-explore/?conteudoBusca='+encodeURIComponent('${conteudoBusca}')+'&pageSize='+jQuery(elemento).val();
+	}
+</script>

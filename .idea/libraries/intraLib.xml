@@ -1,0 +1,76 @@
+<component name="libraryTable">
+  <library name="intraLib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/activation.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/antlr-2.7.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/asm-attrs.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/asm.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/bcprov-jdk16-137.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/cglib-2.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/commons-codec-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/commons-collections-2.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/commons-collections.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/commons-dbcp-1.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/commons-fileupload-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/commons-fileupload-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/commons-fileupload.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/commons-io-1.3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/commons-lang-2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/commons-logging.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/core-renderer-minimal.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/core-renderer.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/db-updater-1.0.0-jar-with-dependencies.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/easymock-2.5.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/ejb3-persistence.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/ezmorph-0.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/futurepages2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/gson-2.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/hibernate-annotations.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/hibernate-commons-annotations.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/hibernate3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/intraCore.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/intranCore.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/iText-2.1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/itext-paulo-155.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/jdom.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/json-lib-0.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/json-oauth.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/jta.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/jxl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/kaptcha-2.3-lib.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/log4j-1.2.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/mail.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/minium.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/mirror-1.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/mysql-connector-java-5.1.11-bin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/PDFBox-0.7.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/quartz.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/standard.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/tagsoup-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/Tidy.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/xstream-1.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../intranet/lib/yuicompressor-2.4.7.jar!/" />
+      <root url="file://$PROJECT_DIR$/../intranet/lib/ad_sdk" />
+      <root url="file://$PROJECT_DIR$/../intranet/lib/deploy" />
+      <root url="file://$PROJECT_DIR$/../intranet/lib/gestor_rh" />
+      <root url="file://$PROJECT_DIR$/../intranet/lib/http_client" />
+      <root url="file://$PROJECT_DIR$/../intranet/lib/jai-1_1_3" />
+      <root url="file://$PROJECT_DIR$/../intranet/lib/jasper_reports" />
+      <root url="file://$PROJECT_DIR$/../intranet/lib/vt-dic_n_passwd" />
+      <root url="file://$PROJECT_DIR$/../intranet/lib/webservices" />
+      <root url="file://$PROJECT_DIR$/../intranet/lib/xmpp" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../intranet/lib/ad_sdk" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../intranet/lib/deploy" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../intranet/lib/gestor_rh" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../intranet/lib/http_client" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../intranet/lib/jai-1_1_3" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../intranet/lib/jasper_reports" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../intranet/lib/vt-dic_n_passwd" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../intranet/lib/webservices" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../intranet/lib/xmpp" recursive="false" />
+  </library>
+</component>

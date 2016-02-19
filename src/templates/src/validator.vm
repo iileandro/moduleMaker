@@ -1,0 +1,34 @@
+package modules.${nomeDoModulo}.validators#if($nomeDoSubmodulo).$nomeDoSubmodulo#end;
+
+import modules.${nomeDoModulo}.beans#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${nomeDoBean};
+import org.futurepages.core.validation.Validator;
+import org.futurepages.util.Is;
+
+/**
+ *
+ * @author 
+ */
+public class ${nomeDoBean}Validator extends Validator {
+
+    public void validateAtributos(${nomeDoBean} ${nomeDaVariavelDoBean}){
+        if(Is.empty(${nomeDaVariavelDoBean})){
+            error("${nomeDaVariavelDoBean}", "Entidade nula.");
+        } else {
+            #foreach($att in $atributoList)
+            if(Is.empty(${nomeDaVariavelDoBean}.get${att.nomeCapitalized}())){
+                error("${att.nome}", "${att.nomeCapitalized} vazio");
+            }
+            #end
+        }
+    }
+
+    public void validateCreate(${nomeDoBean} ${nomeDaVariavelDoBean}) {
+        validateAtributos(${nomeDaVariavelDoBean});
+        validate();
+    }
+
+    public void validateUpdate(${nomeDoBean} ${nomeDaVariavelDoBean}) {
+        validateAtributos(${nomeDaVariavelDoBean});
+        validate();
+    }
+}

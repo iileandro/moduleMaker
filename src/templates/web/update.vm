@@ -1,0 +1,17 @@
+<%@taglib uri="futurepagesApp" prefix="fpg" %>
+
+<div id="pagePath" class="w100">
+	<span>${nomeDoModuloCapitalized}</span>
+	<span class="raquo"></span>
+        <a href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=explore">${nomeDoBean}</a> 
+        <span class="raquo"></span>
+	<span class="bold">Atualizar ${nomeDoBean}</span>
+</div>
+<div class="conteudo w70">
+	<jsp:include page="/messages/error.jsp" />
+
+	<fpg:form id="form${nomeDoBean}" method="post" action="/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}-update" ajax="true"
+                cancelLocation="/${nomeDoModulo}/${nomeDoBean}?type=explore">
+		<jsp:include page="includes/forms/${nomeDoBeanUnCapitalized}.jsp" />
+	</fpg:form>
+</div>

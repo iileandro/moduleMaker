@@ -1,0 +1,23 @@
+<%@ taglib uri="futurepagesApp" prefix="fpg" %>
+
+<fieldset class="cleanFieldset">
+<legend>Dados do ${nomeDoBean}</legend>
+
+<fpg:if value="${ type == 'update'}">
+<input type="hidden" value="${${nomeDoBeanUnCapitalized}.${atributoChave}}" name="${atributoChave}" id="${atributoChave}"/>
+</fpg:if>
+#foreach($att in $atributoList)
+    #if($atributoChave != $att.nome)
+    <div class="gridRow">
+        <div class="ffv lb_${att.nome} gridColumn grid_2 right">
+            <label>${att.nomeCapitalized}</label>
+        </div>
+        <div class="ffv inp_${att.nome} gridColumn grid_12 right">
+            <fpg:inputText path="${nomeDoBeanUnCapitalized}" id="${att.nome}" name="${att.nome}" maxlength="50"/>
+        </div>
+    </div>
+    #end
+#end
+
+</fieldset>
+

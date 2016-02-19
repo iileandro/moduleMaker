@@ -1,0 +1,13 @@
+
+======== Colocar no web.xml
+
+<servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/${nomeDoModulo}/*</url-pattern>
+</servlet-mapping>
+
+
+======== Insert no banco
+
+insert into `admin_module` (`moduleId`, `smallTitle`, `title`) values('${nomeDoModulo}','${nomeDoModuloCapitalized}','Entidades ${nomeDoModuloCapitalized}');
+insert into `admin_role` (`roleId`, `title`, `module_moduleId`) values('${nomeDoModulo}Admin','Administração do Módulo','${nomeDoModulo}');

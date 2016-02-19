@@ -1,0 +1,76 @@
+package modules.${nomeDoModulo}.actions#if($nomeDoSubmodulo).$nomeDoSubmodulo#end;
+
+import org.futurepages.util.StringUtils;
+import modules.${nomeDoModulo}.beans#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${nomeDoBean};
+import modules.${nomeDoModulo}.dao#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${nomeDoBean}Dao;
+import modules.${nomeDoModulo}.validators#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${nomeDoBean}Validator;
+import org.futurepages.actions.CrudActions;
+import org.futurepages.annotations.AsynchronousAction;
+import org.futurepages.annotations.Transactional;
+import org.futurepages.core.pagination.PaginationSlice;
+import org.futurepages.core.persistence.Dao;
+import org.futurepages.enums.AsynchronousActionType;
+
+
+/**
+ *
+ * @author 
+ */
+public class ${nomeDoBean}Actions extends CrudActions {
+
+    private final int PAGE_SIZE = 50;
+    private ${nomeDoBean} ${nomeDaVariavelDoBean};
+
+    @Transactional
+    @AsynchronousAction(AsynchronousActionType.AJAX)
+    public String create() {
+        validate(${nomeDoBean}Validator.class, false).validateCreate(${nomeDaVariavelDoBean});
+        Dao.save(${nomeDaVariavelDoBean});
+        return redir("/${nomeDoModulo}/${nomeDoBean}?type=explore");
+    }
+
+    @Override
+    protected void restoreObject() {
+        this.${nomeDaVariavelDoBean} = ${nomeDoBean}Dao.getBy${atributoChaveCapitalized}(input.getIntValue("codigo"));
+        output.setValue("${nomeDaVariavelDoBean}", ${nomeDaVariavelDoBean});
+        if (getType().equals("update")) {
+            //			headTitleAppend(StringUtils.concat("Atualização para o telecomProblema \"", telecomProblema.getNome(), "\""));
+			/*
+            Escreve o que deve ser atualizado
+	         */
+
+        }
+    }
+	
+    @Override
+    public void listDependencies() {
+    }
+
+    protected void listObjects(){
+        filtra${nomeDoBean}s(null);
+    }
+
+    public String explore(String conteudoBusca) {
+        filtra${nomeDoBean}s(conteudoBusca);
+        return SUCCESS;
+    }
+	 
+    protected void filtra${nomeDoBean}s(String conteudoBusca) {
+        PaginationSlice<${nomeDoBean}> pagList${nomeDoBean} = ${nomeDoBean}Dao.paginateList(getPageNum(), getPageSize(PAGE_SIZE), conteudoBusca);
+        setOutputPaginationSlice("pagList${nomeDoBean}", pagList${nomeDoBean});
+        output.setValue("nome", conteudoBusca);
+    }
+
+    @Transactional
+    @AsynchronousAction(AsynchronousActionType.AJAX)
+    public String update() throws Exception {
+        validate(${nomeDoBean}Validator.class, false).validateUpdate(${nomeDaVariavelDoBean});
+        ${nomeDoBean} persistent${nomeDoBean} = ${nomeDoBean}Dao.getBy${atributoChaveCapitalized}(${nomeDaVariavelDoBean}.get${atributoChaveCapitalized}());
+        /*
+            Escreve o que deve ser atualizado
+         */
+        Dao.update(persistent${nomeDoBean});
+
+        return redir("/${nomeDoModulo}/${nomeDoBean}?type=explore");
+    }
+}
