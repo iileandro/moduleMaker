@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7f8a2e8-3ae7-48c6-9c5d-c14366a0aadd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/intraLib.xml" />
-    </list>
+    <list default="true" id="f7f8a2e8-3ae7-48c6-9c5d-c14366a0aadd" name="Default" comment="" />
     <ignored path="GodeGeneratorByJorge.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
