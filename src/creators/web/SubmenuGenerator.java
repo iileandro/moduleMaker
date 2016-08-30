@@ -48,7 +48,7 @@ public class SubmenuGenerator {
             CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 
 //            System.out.println(GenerateUtils.criaArquivo(result, "src/modules/"+nomeDoModulo+"/actions"+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"") ,nomeDoBean + "Actions.java"));
-            System.out.println(GenerateUtils.criaArquivo(result, "web/modules/"+nomeDoModulo+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"")+"/template", "submenu.jsp"));
+            System.out.println(GenerateUtils.criaArquivo(result, "output/web/modules/"+nomeDoModulo+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"")+"/template", "submenu.jsp"));
         } catch (Exception e) {
             System.out.println(e);
         }

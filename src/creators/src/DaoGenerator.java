@@ -51,8 +51,7 @@ public class DaoGenerator {
 
             CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 
-            System.out.println(GenerateUtils.criaArquivo(result, "src/modules/"+nomeDoModulo+"/dao"+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"") ,nomeDoBean + "Dao.java"));
-//            System.out.println(GenerateUtils.criaArquivo(result, nomeDoBean, "Dao.java"));
+            System.out.println(GenerateUtils.criaArquivo(result, "output/src/modules/"+nomeDoModulo+"/dao"+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"") ,nomeDoBean + "Dao.java"));
         } catch (Exception e) {
             System.out.println(e);
         }

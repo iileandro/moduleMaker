@@ -1,5 +1,7 @@
 <%@ taglib uri="futurepagesApp" prefix="fpg" %>
 
+<%--@elvariable id="${nomeDoBeanUnCapitalized}" type="${canonicalName}"--%>
+
 <fieldset class="cleanFieldset">
 <legend>Dados do ${nomeDoBean}</legend>
 
@@ -10,11 +12,38 @@
     #if($atributoChave != $att.nome)
     <div class="gridRow">
         <div class="ffv lb_${att.nome} gridColumn grid_2 right">
+        #if(${att.nameForForm} != "")
+            <label>${att.nameForForm}</label>
+        #else
             <label>${att.nomeCapitalized}</label>
+        #end
         </div>
+        #if($att.tipo == "CalendarDATE")
+        <div class="ffv inp_${att.nome} gridColumn grid_4">
+            <fpg:inputDate path="${nomeDoBeanUnCapitalized}" id="${att.nome}" name="${att.nome}" defaultText="dd/mm/aaaa"  />
+        </div>
+        #elseif($att.tipo == "CalendarTIMESTAMP")
+        <div class="ffv inp_${att.nome} gridColumn grid_4">
+            <fpg:inputDateTime
+                    id="${att.nome}"
+                    name="${att.nome}"
+                    divFieldsClass="gridRow"
+                    divOnFisrtInput="true"
+                    divOnSecondInput="true"
+                    classFisrtInput="ffv inp_${att.nome} gridColumn grid_3"
+                    classSecondInput="ffv inp_${att.nome} gridColumn grid_1"
+                    value="${${nomeDoBeanUnCapitalized}.${att.nome}}"
+                    defaultValueTime="00:00"
+                    altData="dd/mm/aaaa"
+                    disabled="false"
+                    />
+
+        </div>
+        #else
         <div class="ffv inp_${att.nome} gridColumn grid_12 right">
             <fpg:inputText path="${nomeDoBeanUnCapitalized}" id="${att.nome}" name="${att.nome}" maxlength="50"/>
         </div>
+        #end
     </div>
     #end
 #end

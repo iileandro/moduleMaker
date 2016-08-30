@@ -1,5 +1,7 @@
 <%@taglib uri="futurepagesApp" prefix="fpg" %>
 
+<%--@elvariable id="${nomeDoBeanUnCapitalized}" type="${canonicalName}"--%>
+
 <div id="pagePath" class="w100">
 	<span>${nomeDoModuloCapitalized}</span>
 	<span class="raquo"></span>
@@ -10,7 +12,7 @@
 <div class="conteudo w70">
 	<jsp:include page="/messages/error.jsp" />
 
-	<fpg:form id="form${nomeDoBean}" method="post" action="/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}-update" ajax="true"
+	<fpg:form id="form${nomeDoBean}" method="get" action="/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}-update" ajax="true"
                 cancelLocation="/${nomeDoModulo}/${nomeDoBean}?type=explore">
 		<jsp:include page="includes/forms/${nomeDoBeanUnCapitalized}.jsp" />
 	</fpg:form>

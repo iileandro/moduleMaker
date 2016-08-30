@@ -45,6 +45,7 @@ public class FormGenerator {
             context.put("nomeDoSubmodulo", nomeDoSubmodulo);
             context.put("nomeDoModuloCapitalized", The.capitalizedWord(nomeDoModulo));
             context.put("nomeDoBean", nomeDoBean);
+            context.put("canonicalName", classe.getCanonicalName());
             context.put("nomeDoBeanUnCapitalized", The.uncapitalizedWord(nomeDoBean));
             context.put("nomeDaVariavelDoBean", nomeDaVariavelDoBean);
             context.put("atributoChave", atributoChave);
@@ -55,7 +56,7 @@ public class FormGenerator {
 
             CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 
-            System.out.println(GenerateUtils.criaArquivo(result, "web/modules/"+nomeDoModulo+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"") +"/includes/forms" ,The.uncapitalizedWord(nomeDoBean) + ".jsp"));
+            System.out.println(GenerateUtils.criaArquivo(result, "output/web/modules/"+nomeDoModulo+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"") +"/includes/forms" ,The.uncapitalizedWord(nomeDoBean) + ".jsp"));
 //            System.out.println(GenerateUtils.criaArquivo(result, The.uncapitalizedWord(nomeDoBean), ".jsp"));
         } catch (Exception e) {
             System.out.println(e);

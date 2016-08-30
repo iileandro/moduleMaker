@@ -21,7 +21,6 @@ public class VelocityUtil {
         return instance;
     }
      
-     
     public void render(String templatePath, Map<String, Object> context, Writer writer){
         try{
             VelocityContext velocityContext = new VelocityContext(context);
@@ -31,13 +30,14 @@ public class VelocityUtil {
             }catch(Exception e){
                 throw new RuntimeException("Erro Interno: impossivel carregar a template Velocity: "+ templatePath, e);
             }
+            template.setEncoding("UTF-8");
             template.merge(velocityContext, writer);
         }catch(Throwable th) {
             th.printStackTrace();
         }
     }
-     
-     
+
+
     public CharSequence render(String templatePath, Map<String, Object> context){
         StringWriter writer = new StringWriter(1024);
         render(templatePath,context, writer);

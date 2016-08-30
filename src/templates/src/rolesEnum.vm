@@ -1,0 +1,76 @@
+package modules.${nomeDoModulo}.enums#if($nomeDoSubmodulo).$nomeDoSubmodulo#end;
+
+import modules.admin.dao.RoleDao;
+import org.futurepages.core.admin.DefaultRole;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+* @author
+*/
+public enum ${nomeDoModuloCapitalized}RolesEnum implements DefaultRole, Serializable {
+
+    ADMIN ("${nomeDoModulo}Admin" , "Administração do Módulo");
+
+    private String roleId;
+    private String title;
+
+    private ${nomeDoModuloCapitalized}RolesEnum(String roleId, String title) {
+        this.roleId = roleId;
+        this.title = title;
+    }
+
+    @Override
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return roleId;
+    }
+
+    private static List <String> listRolesHabilitacao = null;
+
+    public static List <String> getListRolesHabilitacao() {
+        if (listRolesHabilitacao == null) {
+            listRolesHabilitacao = new ArrayList<String>();
+            listRolesHabilitacao.add(ADMIN.getRoleId());
+        }
+        return listRolesHabilitacao;
+    }
+
+    private static List <${nomeDoModuloCapitalized}RolesEnum> listEnunsRolesHabilitacao = null;
+
+    public static List<${nomeDoModuloCapitalized}RolesEnum> getListEnunsRolesHabilitacao() {
+        if (listEnunsRolesHabilitacao == null) {
+            listEnunsRolesHabilitacao = new ArrayList<${nomeDoModuloCapitalized}RolesEnum>();
+            listEnunsRolesHabilitacao.add(ADMIN);
+        }
+        return listEnunsRolesHabilitacao;
+    }
+
+    public static void main(String args[]) {
+        install();
+    }
+
+    public static void install(){
+        for(${nomeDoModuloCapitalized}RolesEnum role : ${nomeDoModuloCapitalized}RolesEnum.values()){
+            RoleDao.save(role, role.getTitle(), "${nomeDoModulo}");
+        }
+    }
+}

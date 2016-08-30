@@ -1,5 +1,6 @@
 package creators.src;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import org.futurepages.util.The;
@@ -40,9 +41,12 @@ public class AuxiliarGenerator {
             context.put("nomeDoModuloCapitalized", The.capitalizedWord(nomeDoModulo));
             context.put("nomeDoSubmodulo", nomeDoSubmodulo);
 
+            ArrayList atributoList = GenerateUtils.listMapAtributoTipo(classe);
+            context.put("atributoList", atributoList);
+
             CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 
-            System.out.println(GenerateUtils.criaArquivo(result, "src/modules/"+nomeDoModulo , "DadosAuxiliares.txt"));
+            System.out.println(GenerateUtils.criaArquivo(result, "output/src/modules/"+nomeDoModulo , "DadosAuxiliares.txt"));
         } catch (Exception e) {
             System.out.println(e);
         }

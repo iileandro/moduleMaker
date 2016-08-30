@@ -24,6 +24,8 @@ public class ActionGenerator {
         try {
             classe = Class.forName(classPath);
 
+            String beanCanonicalName = classe.getCanonicalName();
+            System.out.println(beanCanonicalName);
             String[] nomes = GenerateUtils.caminhoClasse(classe.getCanonicalName());
             String nomeDoBean = nomes[nomes.length - 1];
             String nomeDaVariavelDoBean = The.uncapitalizedWord(nomeDoBean);
@@ -47,10 +49,14 @@ public class ActionGenerator {
             context.put("nomeDaVariavelDoBean", nomeDaVariavelDoBean);
             context.put("atributoChave", atributoChave);
             context.put("atributoChaveCapitalized", atributoChaveCapitalized);
+            context.put("atributoChaveTipo", classe.getDeclaredField(atributoChave).getType().getCanonicalName());
+            context.put("atributoChaveTipoCapitalized", The.capitalizedWord(classe.getDeclaredField(atributoChave).getType().getCanonicalName()));
+
+            context.put("atributoList", GenerateUtils.listMapAtributoTipo(classe));
 
             CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 
-            System.out.println(GenerateUtils.criaArquivo(result, "src/modules/"+nomeDoModulo+"/actions"+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"") ,nomeDoBean + "Actions.java"));
+            System.out.println(GenerateUtils.criaArquivo(result, "output/src/modules/"+nomeDoModulo+"/actions"+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"") ,nomeDoBean + "Actions.java"));
         } catch (Exception e) {
             System.out.println(e);
         }

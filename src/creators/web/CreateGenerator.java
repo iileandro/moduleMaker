@@ -45,6 +45,7 @@ public class CreateGenerator {
             context.put("nomeDoSubmodulo", nomeDoSubmodulo);
             context.put("nomeDoModuloCapitalized", The.capitalizedWord(nomeDoModulo));
             context.put("nomeDoBean", nomeDoBean);
+            context.put("canonicalName", classe.getCanonicalName());
             context.put("nomeDoBeanUnCapitalized", The.uncapitalizedWord(nomeDoBean));
             context.put("nomeDaVariavelDoBean", nomeDaVariavelDoBean);
             context.put("atributoChave", atributoChave);
@@ -56,7 +57,7 @@ public class CreateGenerator {
             CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 
 //            criaArquivo(result, nomeDoBean, ".java");
-            System.out.println(GenerateUtils.criaArquivo(result, "web/modules/"+nomeDoModulo+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"") ,nomeDoBean + "-create.jsp"));
+            System.out.println(GenerateUtils.criaArquivo(result, "output/web/modules/"+nomeDoModulo+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"") ,nomeDoBean + "-create.jsp"));
 //            System.out.println(GenerateUtils.criaArquivo(result, nomeDoBean, "-create.jsp"));
         } catch (Exception e) {
             System.out.println(e);

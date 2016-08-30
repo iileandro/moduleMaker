@@ -1,9 +1,11 @@
 <%@taglib uri="futurepagesApp" prefix="fpg" %>
 
+<%--@elvariable id="${nomeDoBeanUnCapitalized}" type="${canonicalName}"--%>
+
 <div id="pagePath" class="w100">
 	<span>${nomeDoModuloCapitalized}</span>
 	<span class="raquo"></span>
-        <a href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=explore">${nomeDoBean}</a> 
+        <a href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/${nomeDoSubmodulo}#end/${nomeDoBean}?type=explore">${nomeDoBean}</a>
         <span class="raquo"></span>
 	<span class="bold">Novo ${nomeDoBean}</span>
 </div>
@@ -11,7 +13,7 @@
 	<jsp:include page="/messages/error.jsp" />
 
 
-	<fpg:form id="form${nomeDoBean}" method="post" action="/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}-create" submitLabel="Cadastrar" ajax="true"
+	<fpg:form id="form${nomeDoBean}" method="get" action="/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}-create" submitLabel="Cadastrar" ajax="true"
 			  cancelLocation="/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=explore" cancelButton="false" resetButton="false" >
 		<jsp:include page="includes/forms/${nomeDoBeanUnCapitalized}.jsp" />
 	</fpg:form>

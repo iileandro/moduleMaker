@@ -48,7 +48,7 @@ public class ModuleGenerator {
             CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 
 //            System.out.println(GenerateUtils.criaArquivo(result, "src/modules/"+nomeDoModulo+"/actions"+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"") ,nomeDoBean + "Actions.java"));
-            System.out.println(GenerateUtils.criaArquivo(result, "src/modules/"+nomeDoModulo, "ModuleManager.java"));
+            System.out.println(GenerateUtils.criaArquivo(result, "output/src/modules/"+nomeDoModulo, "ModuleManager.java"));
         } catch (Exception e) {
             System.out.println(e);
         }

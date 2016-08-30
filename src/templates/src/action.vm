@@ -1,10 +1,13 @@
 package modules.${nomeDoModulo}.actions#if($nomeDoSubmodulo).$nomeDoSubmodulo#end;
 
 import org.futurepages.util.StringUtils;
+import modules.admin.services.LogServices;
+import modules.admin.enums.LogType;
+import modules.sistema.actions.core.SistemaAC;
 import modules.${nomeDoModulo}.beans#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${nomeDoBean};
 import modules.${nomeDoModulo}.dao#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${nomeDoBean}Dao;
 import modules.${nomeDoModulo}.validators#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${nomeDoBean}Validator;
-import org.futurepages.actions.CrudActions;
+import org.futurepages.actions.ProtectedCrudActions;
 import org.futurepages.annotations.AsynchronousAction;
 import org.futurepages.annotations.Transactional;
 import org.futurepages.core.pagination.PaginationSlice;
@@ -13,64 +16,77 @@ import org.futurepages.enums.AsynchronousActionType;
 
 
 /**
- *
- * @author 
- */
-public class ${nomeDoBean}Actions extends CrudActions {
+*
+* @author
+*/
+public class ${nomeDoBean}Actions extends ProtectedCrudActions {
 
-    private final int PAGE_SIZE = 50;
-    private ${nomeDoBean} ${nomeDaVariavelDoBean};
+private final int PAGE_SIZE = 50;
+private ${nomeDoBean} ${nomeDaVariavelDoBean};
 
-    @Transactional
-    @AsynchronousAction(AsynchronousActionType.AJAX)
-    public String create() {
-        validate(${nomeDoBean}Validator.class, false).validateCreate(${nomeDaVariavelDoBean});
-        Dao.save(${nomeDaVariavelDoBean});
-        return redir("/${nomeDoModulo}/${nomeDoBean}?type=explore");
-    }
+private void loadSelects(){
 
-    @Override
-    protected void restoreObject() {
-        this.${nomeDaVariavelDoBean} = ${nomeDoBean}Dao.getBy${atributoChaveCapitalized}(input.getIntValue("codigo"));
-        output.setValue("${nomeDaVariavelDoBean}", ${nomeDaVariavelDoBean});
-        if (getType().equals("update")) {
-            //			headTitleAppend(StringUtils.concat("Atualização para o telecomProblema \"", telecomProblema.getNome(), "\""));
-			/*
-            Escreve o que deve ser atualizado
-	         */
+}
 
-        }
-    }
-	
-    @Override
-    public void listDependencies() {
-    }
+@Transactional
+@AsynchronousAction(AsynchronousActionType.AJAX)
+public String create() {
+validate(${nomeDoBean}Validator.class, false).validateCreate(${nomeDaVariavelDoBean});
+Dao.save(${nomeDaVariavelDoBean});
+LogServices.saveLog(${nomeDaVariavelDoBean}, LogType.CREATE, SistemaAC.loggedUser(this), getIpsFromClient());
+return redir("/${nomeDoModulo}/${nomeDoBean}?type=explore");
+}
 
-    protected void listObjects(){
-        filtra${nomeDoBean}s(null);
-    }
+@Transactional
+@AsynchronousAction(AsynchronousActionType.AJAX)
+public String update() throws Exception {
+#set($beanInput = ${nomeDaVariavelDoBean}+"Input")
+#set($beanOutput = ${nomeDaVariavelDoBean}+"Output")
+${nomeDoBean} $beanInput = ${nomeDaVariavelDoBean};
+validate(${nomeDoBean}Validator.class, false).validateUpdate(${nomeDaVariavelDoBean}Input);
+${nomeDoBean} $beanOutput = ${nomeDoBean}Dao.getBy${atributoChaveCapitalized}(${nomeDaVariavelDoBean}.get${atributoChaveCapitalized}());
+${beanOutput}.fillFromForm($beanInput);
+Dao.update(${beanOutput});
+LogServices.saveLog(${nomeDaVariavelDoBean}, LogType.UPDATE, SistemaAC.loggedUser(this), getIpsFromClient());
+return redir("/${nomeDoModulo}/${nomeDoBean}?type=explore");
+}
 
-    public String explore(String conteudoBusca) {
-        filtra${nomeDoBean}s(conteudoBusca);
-        return SUCCESS;
-    }
-	 
-    protected void filtra${nomeDoBean}s(String conteudoBusca) {
-        PaginationSlice<${nomeDoBean}> pagList${nomeDoBean} = ${nomeDoBean}Dao.paginateList(getPageNum(), getPageSize(PAGE_SIZE), conteudoBusca);
-        setOutputPaginationSlice("pagList${nomeDoBean}", pagList${nomeDoBean});
-        output.setValue("nome", conteudoBusca);
-    }
+@Override
+protected void restoreObject() {
+this.${nomeDaVariavelDoBean} = ${nomeDoBean}Dao.getBy${atributoChaveCapitalized}(input.get${atributoChaveTipoCapitalized}Value("${atributoChave}"));
+output.setValue("${nomeDaVariavelDoBean}", ${nomeDaVariavelDoBean});
+}
 
-    @Transactional
-    @AsynchronousAction(AsynchronousActionType.AJAX)
-    public String update() throws Exception {
-        validate(${nomeDoBean}Validator.class, false).validateUpdate(${nomeDaVariavelDoBean});
-        ${nomeDoBean} persistent${nomeDoBean} = ${nomeDoBean}Dao.getBy${atributoChaveCapitalized}(${nomeDaVariavelDoBean}.get${atributoChaveCapitalized}());
-        /*
-            Escreve o que deve ser atualizado
-         */
-        Dao.update(persistent${nomeDoBean});
+@Override
+public void listDependencies() {
+}
 
-        return redir("/${nomeDoModulo}/${nomeDoBean}?type=explore");
-    }
+protected void listObjects(){
+filtra${nomeDoBean}(null);
+}
+
+public String explore() {
+filtra${nomeDoBean}(input.getStringValue("conteudoBusca"));
+return SUCCESS;
+}
+
+protected void filtra${nomeDoBean}(String conteudoBusca) {
+PaginationSlice<${nomeDoBean}> pagList${nomeDoBean} = ${nomeDoBean}Dao.paginateList(getPageNum(), getPageSize(PAGE_SIZE), conteudoBusca);
+setOutputPaginationSlice("pagList${nomeDoBean}", pagList${nomeDoBean});
+output.setValue("conteudoBusca", conteudoBusca);
+}
+
+
+
+/*
+* MOVER PARA O BEAN
+*/
+//Aqui é setado tudo que vem da tela.
+public void fillFromForm(${nomeDoBean} $beanInput) {
+#foreach($att in $atributoList)
+	#if($atributoChave != $att.nome)
+    this.set${att.nomeCapitalized}(${beanInput}.get${att.nomeCapitalized}());
+	#end
+#end
+}
 }

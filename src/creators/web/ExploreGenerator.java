@@ -45,17 +45,17 @@ public class ExploreGenerator {
             context.put("nomeDoSubmodulo", nomeDoSubmodulo);
             context.put("nomeDoModuloCapitalized", The.capitalizedWord(nomeDoModulo));
             context.put("nomeDoBean", nomeDoBean);
+            context.put("canonicalName", classe.getCanonicalName());
             context.put("nomeDoBeanUnCapitalized", The.uncapitalizedWord(nomeDoBean));
             context.put("nomeDaVariavelDoBean", nomeDaVariavelDoBean);
             context.put("atributoChave", atributoChave);
             context.put("atributoChaveCapitalized", The.capitalizedWord(atributoChave));
 
-            ArrayList atributoList = GenerateUtils.listMapAtributoTipo(classe);
-            context.put("atributoList", atributoList);
+            context.put("atributoList", GenerateUtils.listMapAtributoTipo(classe));
             
             CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 
-            System.out.println(GenerateUtils.criaArquivo(result, "web/modules/"+nomeDoModulo+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"") ,nomeDoBean + "-explore.jsp"));
+            System.out.println(GenerateUtils.criaArquivo(result, "output/web/modules/"+nomeDoModulo+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"") ,nomeDoBean + "-explore.jsp"));
 //            System.out.println(GenerateUtils.criaArquivo(result, nomeDoBean, "-explore.jsp"));
         } catch (Exception e) {
             System.out.println(e);

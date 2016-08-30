@@ -1,13 +1,18 @@
+package gerar;
+
 import creators.src.ActionGenerator;
 import creators.src.AuxiliarGenerator;
 import creators.src.DaoGenerator;
 import creators.src.ModuleGenerator;
+import creators.src.RolesEnumGenerator;
 import creators.src.ValidatorGenerator;
 import creators.web.CreateGenerator;
 import creators.web.ExploreGenerator;
 import creators.web.FormGenerator;
+import creators.web.FunctionsGenerator;
 import creators.web.MenuGenerator;
 import creators.web.SubmenuGenerator;
+import creators.web.LayoutGenerator;
 import creators.web.UpdateGenerator;
 import utils.VelocityInitializer;
 import modules.concursos.beans.*;
@@ -17,7 +22,6 @@ import java.util.ArrayList;
 
 public class Remocao {
 
-//    private VelocityEngine ve;
     public Remocao() {}
     
     public static void geraEntidade(String beanPath){
@@ -38,15 +42,7 @@ public class Remocao {
     }
 
     public static void main(String[] args) {
-        System.setProperty("file.encoding", "ISO-8859-1");
-        System.setProperty("sun.jnu.encoding", "ISO-8859-1");
-//        System.setProperty("file.encoding", "UTF-8");
-//        System.setProperty("sun.jnu.encoding", "UTF-8");
-        System.out.println(System.getProperty("file.encoding"));
-        
-        Example t = new Example();
         VelocityInitializer.getInstance().initializeVelocity();
-//        geraEntidade("modules.tjpi.beans.infraestrutura.TelecomProblema");
 
         ArrayList<String> beanList = new ArrayList();
         beanList.add(RemocaoConcurso.class.getName());
@@ -62,6 +58,12 @@ public class Remocao {
         menu.generate(beanList);
         SubmenuGenerator submenu = new SubmenuGenerator();
         submenu.generate(beanList);
+        FunctionsGenerator fg = new FunctionsGenerator();
+        fg.generate(beanList);
+        LayoutGenerator tg = new LayoutGenerator();
+        tg.generate(beanList);
+        RolesEnumGenerator re = new RolesEnumGenerator();
+        re.generate(beanList);
         AuxiliarGenerator auxiliar = new AuxiliarGenerator();
         auxiliar.generate(beanList.get(0));
     }

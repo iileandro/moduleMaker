@@ -40,8 +40,12 @@ public class VelocityInitializer {
             Properties p = new Properties();
             p.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
             p.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+//            p.setProperty("file.resource.loader.unicode", "true");
 //            p.setProperty("directive.foreach.counter.initial.value", "0");
-            
+
+            p.setProperty(Velocity.INPUT_ENCODING, "UTF-8");
+            p.setProperty(Velocity.OUTPUT_ENCODING,"UTF-8");
+
             try {
                 Velocity.init(p);
             } catch (Exception e) {

@@ -1,3 +1,4 @@
+package gerar;
 
 import creators.src.ActionGenerator;
 import creators.src.DaoGenerator;
@@ -26,7 +27,6 @@ import java.util.Properties;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
-import utils.VelocityInitializer;
 import utils.VelocityUtil;
 
 public class Example {
@@ -96,9 +96,9 @@ public class Example {
                 template = Velocity.getTemplate(templateFile);
 //                template = ve.getTemplate(templateFile);
             } catch (ResourceNotFoundException rnfe) {
-                System.out.println("Example : error : cannot find template " + templateFile);
+                System.out.println("gerar.Example : error : cannot find template " + templateFile);
             } catch (ParseErrorException pee) {
-                System.out.println("Example : Syntax error in template " + templateFile + ":" + pee);
+                System.out.println("gerar.Example : Syntax error in template " + templateFile + ":" + pee);
             }
 
             BufferedWriter writer = writer = new BufferedWriter(
@@ -153,7 +153,7 @@ public class Example {
 /*
     
     public static void main(String[] args) {
-        Example t = new Example();
+        gerar.Example t = new gerar.Example();
         VelocityInitializer.getInstance().initializeVelocity();
 //        geraEntidade("modules.tjpi.beans.infraestrutura.TelecomProblema");
         geraEntidade("modules.infraestrutura.beans.TelecomProblema");
@@ -166,7 +166,7 @@ public class Example {
 //        t.compactoExample("templates/example.vm");
 //        t.compactoExample("templates/src/action.vm");
 //        t.example("templates/example.vm");
-//        Example t = new Example("templates/src/action.vm");
+//        gerar.Example t = new gerar.Example("templates/src/action.vm");
 //        testeReflection();
         
     }
@@ -247,9 +247,9 @@ public class Example {
 //                template = Velocity.getTemplate(templateFile);
                 template = ve.getTemplate(templateFile);
             } catch (ResourceNotFoundException rnfe) {
-                System.out.println("Example : error : cannot find template " + templateFile);
+                System.out.println("gerar.Example : error : cannot find template " + templateFile);
             } catch (ParseErrorException pee) {
-                System.out.println("Example : Syntax error in template " + templateFile + ":" + pee);
+                System.out.println("gerar.Example : Syntax error in template " + templateFile + ":" + pee);
             }
 
             BufferedWriter writer = writer = new BufferedWriter(
