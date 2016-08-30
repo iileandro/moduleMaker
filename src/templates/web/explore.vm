@@ -5,13 +5,17 @@
 <div id="pagePath" class="w100">
     <span>${nomeDoModuloCapitalized}</span>
     <span class="raquo"></span>
+    #if($nomeDoSubmodulo)
+    <span>$nomeDoSubmoduloCapitalized</span>
+    <span class="raquo"></span>
+    #end
     <span class="bold">${nomeDoBean}</span>
 </div>
 <div class="conteudo w100">
     <jsp:include page="/messages/success.jsp"/>
     <div class="linkBox floatRight">
         <a href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=create">Cadastrar
-            Novo ${nomeDoBean}</a>
+            Novo Item</a>
     </div>
     <h1>Gerência de ${nomeDoBean}</h1>
 

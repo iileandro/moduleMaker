@@ -11,7 +11,7 @@ import org.futurepages.core.persistence.Dao;
  */
 public class ${nomeDoBean}Dao extends Dao {
 
-        public static ${nomeDoBean} getBy${atributoChaveCapitalized}(long ${atributoChave}) {
+	public static ${nomeDoBean} getBy${atributoChaveCapitalized}(#foreach($att in $atributoList)#if($atributoChave == $att.nome)${att.tipo}#end#end $atributoChave) {
 		return Dao.get(${nomeDoBean}.class, ${atributoChave});
 	}
 

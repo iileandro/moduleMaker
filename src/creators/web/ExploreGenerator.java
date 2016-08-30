@@ -42,8 +42,9 @@ public class ExploreGenerator {
             Map<String, Object> context = new HashMap();
 //            context.put("list", getNames());
             context.put("nomeDoModulo", nomeDoModulo);
-            context.put("nomeDoSubmodulo", nomeDoSubmodulo);
             context.put("nomeDoModuloCapitalized", The.capitalizedWord(nomeDoModulo));
+            context.put("nomeDoSubmodulo", nomeDoSubmodulo);
+            context.put("nomeDoSubmoduloCapitalized", The.capitalizedWord(nomeDoSubmodulo));
             context.put("nomeDoBean", nomeDoBean);
             context.put("canonicalName", classe.getCanonicalName());
             context.put("nomeDoBeanUnCapitalized", The.uncapitalizedWord(nomeDoBean));

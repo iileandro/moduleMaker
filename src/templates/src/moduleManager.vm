@@ -26,6 +26,13 @@ public class ModuleManager extends AbstractModuleManager {
 
         action(Index.class);
 
+        #if($nomeDoSubmodulo)
+            $nomeDoSubmodulo();
+            }
+
+            $nomeDoSubmodulo(){
+        #end
+
             #foreach($bean in $beanMapList)
         action("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}", ${bean.nomeDoBean}Actions.class)
                 .filter(new VOFilter("${bean.nomeDaVariavelDoBean}", ${bean.nomeDoBean}.class))
@@ -36,5 +43,10 @@ public class ModuleManager extends AbstractModuleManager {
                 ;
 
             #end
+        #if($nomeDoSubmodulo)
+            }
+        #end
+
+
 	}
 }

@@ -48,6 +48,7 @@ public class DaoGenerator {
             context.put("nomeDaVariavelDoBean", nomeDaVariavelDoBean);
             context.put("atributoChave", atributoChave);
             context.put("atributoChaveCapitalized", atributoChaveCapitalized);
+            context.put("atributoList", GenerateUtils.listMapAtributoTipo(classe));
 
             CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 

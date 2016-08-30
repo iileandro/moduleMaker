@@ -5,7 +5,11 @@
 <div id="pagePath" class="w100">
 	<span>${nomeDoModuloCapitalized}</span>
 	<span class="raquo"></span>
-        <a href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/${nomeDoSubmodulo}#end/${nomeDoBean}?type=explore">${nomeDoBean}</a>
+	#if($nomeDoSubmodulo)
+        <span>$nomeDoSubmoduloCapitalized</span>
+        <span class="raquo"></span>
+	#end
+    <a href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/${nomeDoSubmodulo}#end/${nomeDoBean}?type=explore">${nomeDoBean}</a>
         <span class="raquo"></span>
 	<span class="bold">Novo ${nomeDoBean}</span>
 </div>

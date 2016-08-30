@@ -11,7 +11,7 @@
 #foreach($att in $atributoList)
     #if($atributoChave != $att.nome)
     <div class="gridRow">
-        <div class="ffv lb_${att.nome} gridColumn grid_2 right">
+        <div class="ffv lb_${att.nome} gridColumn grid_2 right right middleText">
         #if(${att.nameForForm} != "")
             <label>${att.nameForForm}</label>
         #else
@@ -19,11 +19,11 @@
         #end
         </div>
         #if($att.tipo == "CalendarDATE")
-        <div class="ffv inp_${att.nome} gridColumn grid_4">
+        <div class="ffv inp_${att.nome} gridColumn grid_3 right middleText">
             <fpg:inputDate path="${nomeDoBeanUnCapitalized}" id="${att.nome}" name="${att.nome}" defaultText="dd/mm/aaaa"  />
         </div>
         #elseif($att.tipo == "CalendarTIMESTAMP")
-        <div class="ffv inp_${att.nome} gridColumn grid_4">
+        <div class="ffv inp_${att.nome} gridColumn grid_4 right middleText">
             <fpg:inputDateTime
                     id="${att.nome}"
                     name="${att.nome}"
@@ -40,7 +40,7 @@
 
         </div>
         #else
-        <div class="ffv inp_${att.nome} gridColumn grid_12 right">
+        <div class="ffv inp_${att.nome} gridColumn grid_12 right right middleText">
             <fpg:inputText path="${nomeDoBeanUnCapitalized}" id="${att.nome}" name="${att.nome}" maxlength="50"/>
         </div>
         #end

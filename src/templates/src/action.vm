@@ -34,7 +34,7 @@ public String create() {
 validate(${nomeDoBean}Validator.class, false).validateCreate(${nomeDaVariavelDoBean});
 Dao.save(${nomeDaVariavelDoBean});
 LogServices.saveLog(${nomeDaVariavelDoBean}, LogType.CREATE, SistemaAC.loggedUser(this), getIpsFromClient());
-return redir("/${nomeDoModulo}/${nomeDoBean}?type=explore");
+return redir("/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=explore");
 }
 
 @Transactional
@@ -48,7 +48,7 @@ ${nomeDoBean} $beanOutput = ${nomeDoBean}Dao.getBy${atributoChaveCapitalized}(${
 ${beanOutput}.fillFromForm($beanInput);
 Dao.update(${beanOutput});
 LogServices.saveLog(${nomeDaVariavelDoBean}, LogType.UPDATE, SistemaAC.loggedUser(this), getIpsFromClient());
-return redir("/${nomeDoModulo}/${nomeDoBean}?type=explore");
+return redir("/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=explore");
 }
 
 @Override
