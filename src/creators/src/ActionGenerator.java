@@ -23,40 +23,19 @@ public class ActionGenerator {
     public void generate(String classPath) {
         try {
             classe = Class.forName(classPath);
-
-            String beanCanonicalName = classe.getCanonicalName();
-            System.out.println(beanCanonicalName);
             String[] nomes = GenerateUtils.caminhoClasse(classe.getCanonicalName());
-            String nomeDoBean = nomes[nomes.length - 1];
-            String nomeDaVariavelDoBean = The.uncapitalizedWord(nomeDoBean);
-            String nomeDoModulo = null;
-            String nomeDoSubmodulo = null;
-            if (nomes.length == 5) {
-                nomeDoSubmodulo = nomes[nomes.length - 2];
-                nomeDoModulo = nomes[nomes.length - 4];
-            } else {
-                nomeDoModulo = nomes[nomes.length - 3];
-            }
-
-            String atributoChave = GenerateUtils.atributoChave(classe);
-            String atributoChaveCapitalized = The.capitalizedWord(atributoChave);
-
             Map<String, Object> context = new HashMap();
-//            context.put("list", getNames());
-            context.put("nomeDoModulo", nomeDoModulo);
-            context.put("nomeDoSubmodulo", nomeDoSubmodulo);
-            context.put("nomeDoBean", nomeDoBean);
-            context.put("nomeDaVariavelDoBean", nomeDaVariavelDoBean);
-            context.put("atributoChave", atributoChave);
-            context.put("atributoChaveCapitalized", atributoChaveCapitalized);
-            context.put("atributoChaveTipo", classe.getDeclaredField(atributoChave).getType().getCanonicalName());
-            context.put("atributoChaveTipoCapitalized", The.capitalizedWord(classe.getDeclaredField(atributoChave).getType().getCanonicalName()));
+
+            context.putAll(GenerateUtils.listMapModuleElements(nomes));
+            context.putAll(GenerateUtils.listMapBeanElements(nomes, classe));
 
             context.put("atributoList", GenerateUtils.listMapAtributoTipo(classe));
 
             CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 
-            System.out.println(GenerateUtils.criaArquivo(result, "output/src/modules/"+nomeDoModulo+"/actions"+((nomeDoSubmodulo!=null)?"/"+nomeDoSubmodulo:"") ,nomeDoBean + "Actions.java"));
+            System.out.println(GenerateUtils.criaArquivo(result
+                    , "output/src/modules/"+context.get("nomeDoModulo")+((context.get("nomeDoSubmodulo")!=null)?"/"+context.get("nomeDoSubmodulo"):"")
+                    , context.get("nomeDoBean") + "Actions.java"));
         } catch (Exception e) {
             System.out.println(e);
         }

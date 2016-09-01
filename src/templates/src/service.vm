@@ -1,0 +1,12 @@
+package modules.${nomeDoModulo}.service#if($nomeDoSubmodulo).$nomeDoSubmodulo#end;
+
+import java.util.List;
+import modules.${nomeDoModulo}.beans#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${nomeDoBean};
+
+/**
+*
+* @author
+*/
+public class ${nomeDoBean}Service {
+
+}

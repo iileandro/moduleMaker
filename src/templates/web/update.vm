@@ -9,9 +9,9 @@
         <span>$nomeDoSubmoduloCapitalized</span>
         <span class="raquo"></span>
 	#end
-        <a href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=explore">${nomeDoBean}</a> 
+        <a href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=explore">${entityName}</a>
         <span class="raquo"></span>
-	<span class="bold">Atualizar ${nomeDoBean}</span>
+	<span class="bold">Atualizar ${entityName}</span>
 </div>
 <div class="conteudo w70">
 	<jsp:include page="/messages/error.jsp" />

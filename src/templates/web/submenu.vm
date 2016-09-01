@@ -9,7 +9,7 @@
 		#else
         <li>
 		#end
-        <a href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${bean.nomeDoBean}?type=explore">${bean.nomeDoBean}</a>
+        <a href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${bean.nomeDoBean}?type=explore">${bean.entityName}</a>
     </li>
 	#end
 </fpg:hasPermission>

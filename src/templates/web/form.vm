@@ -3,7 +3,7 @@
 <%--@elvariable id="${nomeDoBeanUnCapitalized}" type="${canonicalName}"--%>
 
 <fieldset class="cleanFieldset">
-<legend>Dados do ${nomeDoBean}</legend>
+<legend>Dados do ${entityName}</legend>
 
 <fpg:if value="${ type == 'update'}">
 <input type="hidden" value="${${nomeDoBeanUnCapitalized}.${atributoChave}}" name="${atributoChave}" id="${atributoChave}"/>

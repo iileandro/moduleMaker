@@ -24,29 +24,17 @@ public class AuxiliarGenerator {
     public void generate(String classPath) {
         try {
             classe = Class.forName(classPath);
-
             String[] nomes = GenerateUtils.caminhoClasse(classe.getCanonicalName());
-            String nomeDoModulo = null;
-            String nomeDoSubmodulo = null;
-            if (nomes.length == 5) {
-                nomeDoSubmodulo = nomes[nomes.length - 2];
-                nomeDoModulo = nomes[nomes.length - 4];
-            } else {
-                nomeDoModulo = nomes[nomes.length - 3];
-            }
-
             Map<String, Object> context = new HashMap();
-//            context.put("list", getNames());
-            context.put("nomeDoModulo", nomeDoModulo);
-            context.put("nomeDoModuloCapitalized", The.capitalizedWord(nomeDoModulo));
-            context.put("nomeDoSubmodulo", nomeDoSubmodulo);
 
-            ArrayList atributoList = GenerateUtils.listMapAtributoTipo(classe);
-            context.put("atributoList", atributoList);
+            context.putAll(GenerateUtils.listMapModuleElements(nomes));
+//            context.putAll(GenerateUtils.listMapBeanElements(nomes, classe));
+
+            context.put("atributoList", GenerateUtils.listMapAtributoTipo(classe));
 
             CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 
-            System.out.println(GenerateUtils.criaArquivo(result, "output/src/modules/"+nomeDoModulo , "DadosAuxiliares.txt"));
+            System.out.println(GenerateUtils.criaArquivo(result, "output/src/modules/"+context.get("nomeDoModulo") , "DadosAuxiliares.txt"));
         } catch (Exception e) {
             System.out.println(e);
         }

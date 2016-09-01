@@ -1,12 +1,21 @@
 package gerar;
 
 import creators.src.ActionGenerator;
+import creators.src.AuxiliarGenerator;
 import creators.src.DaoGenerator;
+import creators.src.ModuleManagerGenerator;
+import creators.src.RolesEnumGenerator;
 import creators.src.ValidatorGenerator;
 import creators.web.CreateGenerator;
 import creators.web.ExploreGenerator;
 import creators.web.FormGenerator;
+import creators.web.FunctionsGenerator;
+import creators.web.LayoutGenerator;
+import creators.web.MenuGenerator;
+import creators.web.SubmenuGenerator;
 import creators.web.UpdateGenerator;
+import modules.estoque.beans.ClasseMaterial;
+import modules.estoque.beans.Material;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.Template;
@@ -27,250 +36,59 @@ import java.util.Properties;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+import utils.VelocityInitializer;
 import utils.VelocityUtil;
 
 public class Example {
 
-//    private VelocityEngine ve;
     public Example() {}
-    
-    public void compactoExample(String templateFile) {
-        
-        
-        
-        Map<String, Object> context = new HashMap();
-        context.put("nomeDoModulo", "global");
-        context.put("nomeDoBean", "Banco");
-        context.put("nomeDaVariavelDoBean", "banco");
-        
-        CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 
-        System.out.println("Result :\n");
-        System.out.println(result.toString());
-//        try {
-//            
-//
-//            BufferedWriter writer = writer = new BufferedWriter(
-//                    new OutputStreamWriter(System.out));
-//
-//            if (template != null) {
-//                template.merge(context, writer);
-//            }
-//
-//            /*
-//             *  flush and cleanup
-//             */
-//            writer.flush();
-//            writer.close();
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-    }
-    
-    public void example(String templateFile) {
-        try {
-
-            Properties p = new Properties();
-            p.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
-            p.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
-//            VelocityEngine ve = new VelocityEngine();
-//            ve.init(p);
-            /* Ou */
-//            VelocityEngine ve = new VelocityEngine();
-//            ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
-//            ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
-//            ve.init();
-
-//            Velocity.init("velocity.properties");
-            /* OU */
-            Velocity.init(p);
-            VelocityContext context = new VelocityContext();
-//            context.put("list", getNames());
-            context.put("nomeDoModulo", "global");
-            context.put("nomeDoBean", "Banco");
-            context.put("nomeDaVariavelDoBean", "banco");
-
-            Template template = null;
-
-            try {
-                template = Velocity.getTemplate(templateFile);
-//                template = ve.getTemplate(templateFile);
-            } catch (ResourceNotFoundException rnfe) {
-                System.out.println("gerar.Example : error : cannot find template " + templateFile);
-            } catch (ParseErrorException pee) {
-                System.out.println("gerar.Example : Syntax error in template " + templateFile + ":" + pee);
-            }
-
-            BufferedWriter writer = writer = new BufferedWriter(
-                    new OutputStreamWriter(System.out));
-
-            if (template != null) {
-                template.merge(context, writer);
-            }
-
-            /*
-             *  flush and cleanup
-             */
-            writer.flush();
-            writer.close();
-
-//            Template t = ve.getTemplate("templates/email_html_new.vm");
-//        StringWriter writer = new StringWriter();
-//        t.merge(context, writer);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public ArrayList getNames() {
-        ArrayList list = new ArrayList();
-
-        list.add("ArrayList element 1");
-        list.add("ArrayList element 2");
-        list.add("ArrayList element 3");
-        list.add("ArrayList element 4");
-
-        return list;
-    }
-    
-    public static void geraEntidade(String classPath){
+    public static void geraEntidade(String beanPath){
+        // Java
         ActionGenerator ag = new ActionGenerator();
-        ag.generate(classPath);
+        ag.generate(beanPath);
         DaoGenerator dg = new DaoGenerator();
-        dg.generate(classPath);
+        dg.generate(beanPath);
         ValidatorGenerator vg = new ValidatorGenerator();
-        vg.generate(classPath);
+        vg.generate(beanPath);
+
+        // Web
         ExploreGenerator eg = new ExploreGenerator();
-        eg.generate(classPath);
+        eg.generate(beanPath);
         CreateGenerator cg = new CreateGenerator();
-        cg.generate(classPath);
+        cg.generate(beanPath);
         UpdateGenerator ug = new UpdateGenerator();
-        ug.generate(classPath);
+        ug.generate(beanPath);
         FormGenerator fm = new FormGenerator();
-        fm.generate(classPath);
+        fm.generate(beanPath);
     }
-    
-/*
-    
+
     public static void main(String[] args) {
-        gerar.Example t = new gerar.Example();
         VelocityInitializer.getInstance().initializeVelocity();
-//        geraEntidade("modules.tjpi.beans.infraestrutura.TelecomProblema");
-        geraEntidade("modules.infraestrutura.beans.TelecomProblema");
-        
-        
-        
-        
-        
-        
-//        t.compactoExample("templates/example.vm");
-//        t.compactoExample("templates/src/action.vm");
-//        t.example("templates/example.vm");
-//        gerar.Example t = new gerar.Example("templates/src/action.vm");
-//        testeReflection();
-        
-    }
 
-    */
-    public static void testeReflection() {
-        Class<?> cl = null;
-
-        try {
-            cl = Class.forName("modules.tjpi.beans.TipoFuncao");
-            for (Constructor<?> c : cl.getConstructors()) {
-                System.out.println("Construtor da Classe: " + c.getName());
-
-                for (Class<?> attType : c.getParameterTypes()) {
-                    System.out.println(" +--- Tipos de Argumentos do construtor: " + attType.getSimpleName());
-                }
-            }
-
-            System.out.println("\n");
-            for (Field f : cl.getDeclaredFields()) {
-                for (Annotation a : f.getDeclaredAnnotations()) {
-                    System.out.println("Annotation: " + a.annotationType().getCanonicalName());
-                }
-                switch (f.getModifiers()) {
-                    case Modifier.PUBLIC:
-                        System.out.println(Modifier.toString(Modifier.PUBLIC)
-                                + " " + f.getType().getSimpleName()
-                                + " " + f.getName() + ";");
-                        break;
-                    case Modifier.PRIVATE:
-                        System.out.println(Modifier.toString(Modifier.PRIVATE)
-                                + " " + f.getType().getSimpleName()
-                                + " " + f.getName() + ";");
-                        break;
-                    case Modifier.FINAL:
-                        System.out.println(Modifier.toString(Modifier.FINAL)
-                                + " " + f.getType().getSimpleName()
-                                + " " + f.getName() + ";");
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            System.out.println("\n");
-            for (Method m : cl.getDeclaredMethods()) {
-                System.out.println("Nome do método: " + m.getName());
-                for (Annotation annotation : m.getDeclaredAnnotations()) {
-                    System.out.println("  +--- Anotação do método: " + annotation.toString());
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        ArrayList<String> beanList = new ArrayList();
+        beanList.add(Material.class.getName());
+        beanList.add(ClasseMaterial.class.getName());
+        for (String bean : beanList) {
+            geraEntidade(bean);
         }
+
+        // Java
+        ModuleManagerGenerator mg = new ModuleManagerGenerator();
+        mg.generate(beanList);
+        RolesEnumGenerator re = new RolesEnumGenerator();
+        re.generate(beanList);
+        AuxiliarGenerator auxiliar = new AuxiliarGenerator();
+        auxiliar.generate(beanList.get(0));
+
+        // Web
+        MenuGenerator menu = new MenuGenerator();
+        menu.generate(beanList);
+        SubmenuGenerator submenu = new SubmenuGenerator();
+        submenu.generate(beanList);
+        FunctionsGenerator fg = new FunctionsGenerator();
+        fg.generate(beanList);
+        LayoutGenerator tg = new LayoutGenerator();
+        tg.generate(beanList);
     }
-
-    public void actionCreator() {
-        String templateFile = "templates/src/action.vm";
-        VelocityEngine ve;
-//        VelocityInitializer.getInstance().initializeVelocity();
-        try {
-
-            ve = new VelocityEngine();
-            ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
-            ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
-            ve.init();
-
-            VelocityContext context = new VelocityContext();
-
-            context.put("nomeDoModulo", "global");
-            context.put("nomeDoBean", "Banco");
-            context.put("nomeDaVariavelDoBean", "banco");
-
-            Template template = null;
-
-            try {
-//                template = Velocity.getTemplate(templateFile);
-                template = ve.getTemplate(templateFile);
-            } catch (ResourceNotFoundException rnfe) {
-                System.out.println("gerar.Example : error : cannot find template " + templateFile);
-            } catch (ParseErrorException pee) {
-                System.out.println("gerar.Example : Syntax error in template " + templateFile + ":" + pee);
-            }
-
-            BufferedWriter writer = writer = new BufferedWriter(
-                    new OutputStreamWriter(System.out));
-
-            if (template != null) {
-                template.merge(context, writer);
-            }
-
-            /*
-             *  flush and cleanup
-             */
-            writer.flush();
-            writer.close();
-
-//            Template t = ve.getTemplate("templates/email_html_new.vm");
-//        StringWriter writer = new StringWriter();
-//        t.merge(context, writer);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
 }

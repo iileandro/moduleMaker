@@ -29,7 +29,6 @@ public class ModuleManager extends AbstractModuleManager {
         #if($nomeDoSubmodulo)
             $nomeDoSubmodulo();
             }
-
             $nomeDoSubmodulo(){
         #end
 
@@ -41,12 +40,9 @@ public class ModuleManager extends AbstractModuleManager {
                 .on(CREATE, fwIn("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}-create.page"))
                 .on(UPDATE, fwIn("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}-update.page"))
                 ;
-
             #end
         #if($nomeDoSubmodulo)
             }
         #end
-
-
 	}
 }

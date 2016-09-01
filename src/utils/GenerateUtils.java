@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.futurepages.annotations.ModuleMakeAttribute;
+import org.futurepages.annotations.ModuleMakeEntity;
+import org.futurepages.util.Is;
 import org.futurepages.util.The;
 
 import javax.persistence.Temporal;
@@ -65,43 +67,100 @@ public class GenerateUtils {
             HashMap map = new HashMap();
             String tipo = f.getType().getSimpleName();
 
-            String nameForForm = "";
-            String nameForExplore = "";
-            boolean showInExplore = true;
+            String nameOnForm = "";
+            String nameOnExplore = "";
+            boolean showOnExplore = true;
             boolean createSelect = false;
             if(f.isAnnotationPresent(ModuleMakeAttribute.class)){
                 ModuleMakeAttribute mma = f.getAnnotation(ModuleMakeAttribute.class);
-                nameForForm = mma.nameForForm();
-                nameForExplore = mma.nameForExplore();
-                showInExplore = mma.showInExplore();
+                nameOnForm = mma.nameOnForm();
+                nameOnExplore = mma.nameOnExplore();
+                showOnExplore = mma.showOnExplore();
                 if(tipo.equals("Calendar")){
                     tipo = tipo + mma.useCalendarLike().name();
                 }
-//                createSelect = mma.createSelect();
+                createSelect = mma.createSelect();
             }
 
             map.put("nome", f.getName());
             map.put("nomeCapitalized", The.capitalizedWord(f.getName()));
             map.put("tipo", tipo);
-            map.put("nameForForm", nameForForm);
-            map.put("nameForExplore", nameForExplore);
-            map.put("showInExplore", showInExplore);
+            map.put("nameOnForm", Is.empty(nameOnForm) ? The.capitalizedWord(f.getName()) : nameOnForm);
+            map.put("nameOnExplore", nameOnExplore);
+            map.put("showOnExplore", showOnExplore);
             map.put("createSelect", createSelect);
             atributoList.add(map);
         }
+
         return atributoList;
     }
 
-    public static ArrayList listMapBeans(ArrayList<String> beanList) throws ClassNotFoundException {
+    public static ArrayList listMapBeans(ArrayList<String> beanList) throws ClassNotFoundException, NoSuchFieldException {
         ArrayList beanMapList = new ArrayList();
         for (String bean : beanList) {
             Class<?> classe = Class.forName(bean);
             String[] nomes = GenerateUtils.caminhoClasse(classe.getCanonicalName());
-            Map<String, String> map = new HashMap();
-            map.put("nomeDoBean", nomes[nomes.length - 1]);
-            map.put("nomeDaVariavelDoBean", The.uncapitalizedWord(nomes[nomes.length - 1]));
+            Map<String, Object> map = new HashMap();
+
+            map.putAll(GenerateUtils.listMapBeanElements(nomes, classe));
+
+//            map.put("nomeDoBean", nomes[nomes.length - 1]);
+//            map.put("nomeDaVariavelDoBean", The.uncapitalizedWord(nomes[nomes.length - 1]));
+//            if(classe.isAnnotationPresent(ModuleMakeEntity.class)){
+//                ModuleMakeEntity mme = classe.getAnnotation(ModuleMakeEntity.class);
+//                String entityName = Is.empty(mme.name()) ? nomes[nomes.length - 1] : mme.name();
+//                map.put("entityName", entityName);
+//            }
             beanMapList.add(map);
         }
         return beanMapList;
+    }
+
+    public static Map<String, Object> listMapBeanElements(String[] nomes, Class<?> c) throws NoSuchFieldException {
+        Map<String, Object> map = new HashMap();
+        ModuleMakeEntity mme = null;
+
+        String nomeDoBean = nomes[nomes.length - 1];
+        String nomeDaVariavelDoBean = The.uncapitalizedWord(nomeDoBean);
+        String atributoChave = GenerateUtils.atributoChave(c);
+
+        map.put("nomeDoBean", nomeDoBean);
+        map.put("canonicalName", c.getCanonicalName());
+        map.put("nomeDoBeanUnCapitalized", The.uncapitalizedWord(nomeDoBean));
+        map.put("nomeDaVariavelDoBean", nomeDaVariavelDoBean);
+        map.put("atributoChave", atributoChave);
+        map.put("atributoChaveCapitalized", The.capitalizedWord(atributoChave));
+        map.put("atributoChaveTipo", c.getDeclaredField(atributoChave).getType().getCanonicalName());
+        map.put("atributoChaveTipoCapitalized", The.capitalizedWord(c.getDeclaredField(atributoChave).getType().getCanonicalName()));
+
+        if(c.isAnnotationPresent(ModuleMakeEntity.class)){
+            mme = c.getAnnotation(ModuleMakeEntity.class);
+        }
+        String entityName = mme == null ? nomeDoBean : (Is.empty(mme) ? nomeDoBean : mme.name());
+        map.put("entityName", entityName);
+
+        return map;
+    }
+
+    public static Map<String, Object> listMapModuleElements(String[] nomes){
+
+        Map<String, Object> map = new HashMap();
+        String nomeDoModulo = null;
+        String nomeDoSubmodulo = null;
+        if (nomes.length == 5) {
+            nomeDoSubmodulo = nomes[nomes.length - 2];
+            nomeDoModulo = nomes[nomes.length - 4];
+        } else {
+            nomeDoModulo = nomes[nomes.length - 3];
+        }
+//            map.put("list", getNames());
+        map.put("nomeDoModulo", nomeDoModulo);
+        map.put("nomeDoModuloCapitalized", The.capitalizedWord(nomeDoModulo));
+        map.put("nomeDoSubmodulo", nomeDoSubmodulo);
+        if(!Is.empty(nomeDoSubmodulo)) {
+            map.put("nomeDoSubmoduloCapitalized", The.capitalizedWord(nomeDoSubmodulo));
+        }
+
+        return map;
     }
 }

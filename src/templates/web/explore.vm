@@ -9,15 +9,14 @@
     <span>$nomeDoSubmoduloCapitalized</span>
     <span class="raquo"></span>
     #end
-    <span class="bold">${nomeDoBean}</span>
+    <span class="bold">${entityName}</span>
 </div>
 <div class="conteudo w100">
     <jsp:include page="/messages/success.jsp"/>
     <div class="linkBox floatRight">
-        <a href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=create">Cadastrar
-            Novo Item</a>
+        <a href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=create">Cadastrar ${entityName}</a>
     </div>
-    <h1>Gerência de ${nomeDoBean}</h1>
+    <h1>Gerência de ${entityName}</h1>
 
     <form method="post" action="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}-explore">
         <div class="gridRow">

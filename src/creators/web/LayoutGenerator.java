@@ -24,7 +24,7 @@ public class LayoutGenerator {
     public void generate(ArrayList<String> beanList) {
         try {
             classe = Class.forName(beanList.get(0));
-            
+
             String[] nomes = GenerateUtils.caminhoClasse(classe.getCanonicalName());
             String nomeDoModulo = null;
             String nomeDoSubmodulo = null;
