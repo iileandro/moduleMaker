@@ -48,7 +48,7 @@ public class ValidatorGenerator {
             CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 
             System.out.println(GenerateUtils.criaArquivo(result
-                    , "output/src/modules/"+context.get("nomeDoModulo")+((context.get("nomeDoSubmodulo")!=null)?"/"+context.get("nomeDoSubmodulo"):"")
+                    , "output/src/modules/"+context.get("nomeDoModulo")+"/validators"+((context.get("nomeDoSubmodulo")!=null)?"/"+context.get("nomeDoSubmodulo"):"")
                     , context.get("nomeDoBean") + "Validator.java"));
 //            System.out.println(GenerateUtils.criaArquivo(result, nomeDoBean, "Validator.java"));
         } catch (Exception e) {

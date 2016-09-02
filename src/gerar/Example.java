@@ -16,28 +16,9 @@ import creators.web.SubmenuGenerator;
 import creators.web.UpdateGenerator;
 import modules.estoque.beans.ClasseMaterial;
 import modules.estoque.beans.Material;
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.Template;
-
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
-
-import java.io.*;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.runtime.RuntimeConstants;
-import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import utils.VelocityInitializer;
-import utils.VelocityUtil;
+
+import java.util.ArrayList;
 
 public class Example {
 

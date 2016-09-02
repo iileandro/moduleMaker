@@ -12,8 +12,8 @@
     #if($atributoChave != $att.nome)
     <div class="gridRow">
         <div class="ffv lb_${att.nome} gridColumn grid_2 right right middleText">
-        #if(${att.nameForForm} != "")
-            <label>${att.nameForForm}</label>
+        #if(${att.nameOnForm} != "")
+            <label>${att.nameOnForm}</label>
         #else
             <label>${att.nomeCapitalized}</label>
         #end
@@ -39,10 +39,17 @@
                     />
 
         </div>
+
         #else
+            #if(${att.createSelect})
+                <div class="ffv inp_${att.nome} gridColumn grid_10 right">
+                    <fpg:Select  selected="${${nomeDoBeanUnCapitalized}.${att.nome}.id}" list="${att.nome}List" defaultText="" name="${att.nome}" id="${att.nome}" />
+                </div>
+            #else
         <div class="ffv inp_${att.nome} gridColumn grid_12 right right middleText">
             <fpg:inputText path="${nomeDoBeanUnCapitalized}" id="${att.nome}" name="${att.nome}" maxlength="50"/>
         </div>
+            #end
         #end
     </div>
     #end

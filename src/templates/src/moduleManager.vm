@@ -35,6 +35,15 @@ public class ModuleManager extends AbstractModuleManager {
             #foreach($bean in $beanMapList)
         action("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}", ${bean.nomeDoBean}Actions.class)
                 .filter(new VOFilter("${bean.nomeDaVariavelDoBean}", ${bean.nomeDoBean}.class))
+
+##                #foreach($att in $atributoList)
+##                    #if(${att.createSelect})
+##                    import modules.${nomeDoModulo}.dao#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${att.tipo}Dao;
+##                    .filter(new PIFilter("contrato","empresa", Empresa.class), CREATE, UPDATE)
+##                    #end
+##                #end
+
+
                 .on(EXPLORE, fwIn("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}-explore.page"))
                 .on(SUCCESS, EXPLORE, fwIn("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}-explore.page"))
                 .on(CREATE, fwIn("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}-create.page"))

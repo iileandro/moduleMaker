@@ -34,7 +34,7 @@ public class ActionGenerator {
             CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 
             System.out.println(GenerateUtils.criaArquivo(result
-                    , "output/src/modules/"+context.get("nomeDoModulo")+((context.get("nomeDoSubmodulo")!=null)?"/"+context.get("nomeDoSubmodulo"):"")
+                    , "output/src/modules/"+context.get("nomeDoModulo")+"/actions"+((context.get("nomeDoSubmodulo")!=null)?"/"+context.get("nomeDoSubmodulo"):"")
                     , context.get("nomeDoBean") + "Actions.java"));
         } catch (Exception e) {
             System.out.println(e);

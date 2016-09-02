@@ -15,7 +15,7 @@ public class ${nomeDoBean}Dao extends Dao {
 		return Dao.get(${nomeDoBean}.class, ${atributoChave});
 	}
 
-	public static List<${nomeDoBean}> list${nomeDoBean}(){
+	public static List<${nomeDoBean}> listAll(){
 		return Dao.list(${nomeDoBean}.class, null, null);
 	}
 

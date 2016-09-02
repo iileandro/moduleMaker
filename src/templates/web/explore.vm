@@ -41,10 +41,10 @@
         <table width="100%" class="plc-table">
             <thead>
 				#foreach($att in $atributoList)
-					#if(${att.showInExplore} == true)
+					#if(${att.showOnExplore} == true)
 						#if($atributoChave != $att.nome)
-							#if(${att.nameForExplore} != "")
-                            <th>${att.nameForExplore}</th>
+							#if(${att.nameOnExplore} != "")
+                            <th>${att.nameOnExplore}</th>
 							#else
                             <th>${att.nomeCapitalized}</th>
 							#end
@@ -68,7 +68,7 @@
                     <fpg:isEven test="index">class="evenTr"</fpg:isEven>
                     >
 					#foreach($att in $atributoList)
-						#if(${att.showInExplore} == true)
+						#if(${att.showOnExplore} == true)
 							#if($atributoChave != $att.nome)
                                 <td>
 									#if($att.tipo == "Calendar")

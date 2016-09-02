@@ -38,7 +38,6 @@ public class FormGenerator {
             System.out.println(GenerateUtils.criaArquivo(result
                     , "output/web/modules/"+context.get("nomeDoModulo")+((context.get("nomeDoSubmodulo")!=null)?"/"+context.get("nomeDoSubmodulo"):"")+"/includes/forms"
                     , The.uncapitalizedWord(context.get("nomeDoBean").toString()) + ".jsp"));
-//            System.out.println(GenerateUtils.criaArquivo(result, The.uncapitalizedWord(nomeDoBean), ".jsp"));
         } catch (Exception e) {
             System.out.println(e);
         }

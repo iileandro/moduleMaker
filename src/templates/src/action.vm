@@ -6,6 +6,11 @@ import modules.admin.enums.LogType;
 import modules.sistema.actions.core.SistemaAC;
 import modules.${nomeDoModulo}.beans#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${nomeDoBean};
 import modules.${nomeDoModulo}.dao#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${nomeDoBean}Dao;
+#foreach($att in $atributoList)
+#if(${att.createSelect})
+import modules.${nomeDoModulo}.dao#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${att.tipo}Dao;
+#end
+#end
 import modules.${nomeDoModulo}.validators#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${nomeDoBean}Validator;
 import org.futurepages.actions.ProtectedCrudActions;
 import org.futurepages.annotations.AsynchronousAction;
@@ -14,6 +19,13 @@ import org.futurepages.core.pagination.PaginationSlice;
 import org.futurepages.core.persistence.Dao;
 import org.futurepages.enums.AsynchronousActionType;
 
+#foreach($att in $atributoList)
+#if(${att.createSelect})
+import java.util.List;
+	#break
+#end
+#end
+
 
 /**
 *
@@ -21,72 +33,78 @@ import org.futurepages.enums.AsynchronousActionType;
 */
 public class ${nomeDoBean}Actions extends ProtectedCrudActions {
 
-private final int PAGE_SIZE = 50;
-private ${nomeDoBean} ${nomeDaVariavelDoBean};
+	private final int PAGE_SIZE = 50;
+	private ${nomeDoBean} ${nomeDaVariavelDoBean};
 
-private void loadSelects(){
+	private void loadSelects(){
 
-}
+	}
 
-@Transactional
-@AsynchronousAction(AsynchronousActionType.AJAX)
-public String create() {
-validate(${nomeDoBean}Validator.class, false).validateCreate(${nomeDaVariavelDoBean});
-Dao.save(${nomeDaVariavelDoBean});
-LogServices.saveLog(${nomeDaVariavelDoBean}, LogType.CREATE, SistemaAC.loggedUser(this), getIpsFromClient());
-return redir("/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=explore");
-}
+	@Transactional
+	@AsynchronousAction(AsynchronousActionType.AJAX)
+	public String create() {
+		validate(${nomeDoBean}Validator.class, false).validateCreate(${nomeDaVariavelDoBean});
+		Dao.save(${nomeDaVariavelDoBean});
+		LogServices.saveLog(${nomeDaVariavelDoBean}, LogType.CREATE, SistemaAC.loggedUser(this), getIpsFromClient());
+		return redir("/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=explore");
+	}
 
-@Transactional
-@AsynchronousAction(AsynchronousActionType.AJAX)
-public String update() throws Exception {
-#set($beanInput = ${nomeDaVariavelDoBean}+"Input")
-#set($beanOutput = ${nomeDaVariavelDoBean}+"Output")
-${nomeDoBean} $beanInput = ${nomeDaVariavelDoBean};
-validate(${nomeDoBean}Validator.class, false).validateUpdate(${nomeDaVariavelDoBean}Input);
-${nomeDoBean} $beanOutput = ${nomeDoBean}Dao.getBy${atributoChaveCapitalized}(${nomeDaVariavelDoBean}.get${atributoChaveCapitalized}());
-${beanOutput}.fillFromForm($beanInput);
-Dao.update(${beanOutput});
-LogServices.saveLog(${nomeDaVariavelDoBean}, LogType.UPDATE, SistemaAC.loggedUser(this), getIpsFromClient());
-return redir("/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=explore");
-}
+	@Transactional
+	@AsynchronousAction(AsynchronousActionType.AJAX)
+	public String update() throws Exception {
+		#set($beanInput = ${nomeDaVariavelDoBean}+"Input")
+		#set($beanOutput = ${nomeDaVariavelDoBean}+"Output")
+		${nomeDoBean} $beanInput = ${nomeDaVariavelDoBean};
+		validate(${nomeDoBean}Validator.class, false).validateUpdate(${nomeDaVariavelDoBean}Input);
+		${nomeDoBean} $beanOutput = ${nomeDoBean}Dao.getBy${atributoChaveCapitalized}(${nomeDaVariavelDoBean}.get${atributoChaveCapitalized}());
+		${beanOutput}.fillFromForm($beanInput);
+		Dao.update(${beanOutput});
+		LogServices.saveLog(${nomeDaVariavelDoBean}, LogType.UPDATE, SistemaAC.loggedUser(this), getIpsFromClient());
+		return redir("/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=explore");
+	}
 
-@Override
-protected void restoreObject() {
-this.${nomeDaVariavelDoBean} = ${nomeDoBean}Dao.getBy${atributoChaveCapitalized}(input.get${atributoChaveTipoCapitalized}Value("${atributoChave}"));
-output.setValue("${nomeDaVariavelDoBean}", ${nomeDaVariavelDoBean});
-}
+	@Override
+	protected void restoreObject() {
+		this.${nomeDaVariavelDoBean} = ${nomeDoBean}Dao.getBy${atributoChaveCapitalized}(input.get${atributoChaveTipoCapitalized}Value("${atributoChave}"));
+		output.setValue("${nomeDaVariavelDoBean}", ${nomeDaVariavelDoBean});
+	}
 
-@Override
-public void listDependencies() {
-}
-
-protected void listObjects(){
-filtra${nomeDoBean}(null);
-}
-
-public String explore() {
-filtra${nomeDoBean}(input.getStringValue("conteudoBusca"));
-return SUCCESS;
-}
-
-protected void filtra${nomeDoBean}(String conteudoBusca) {
-PaginationSlice<${nomeDoBean}> pagList${nomeDoBean} = ${nomeDoBean}Dao.paginateList(getPageNum(), getPageSize(PAGE_SIZE), conteudoBusca);
-setOutputPaginationSlice("pagList${nomeDoBean}", pagList${nomeDoBean});
-output.setValue("conteudoBusca", conteudoBusca);
-}
-
-
-
-/*
-* MOVER PARA O BEAN
-*/
-//Aqui é setado tudo que vem da tela.
-public void fillFromForm(${nomeDoBean} $beanInput) {
-#foreach($att in $atributoList)
-	#if($atributoChave != $att.nome)
-    this.set${att.nomeCapitalized}(${beanInput}.get${att.nomeCapitalized}());
+	@Override
+	public void listDependencies() {
+	#foreach($att in $atributoList)
+		#if(${att.createSelect})
+		List ${att.nome}List = ${att.tipo}Dao.listAll();
+		output.setValue("${att.nome}List", ${att.nome}List);
+		#end
 	#end
-#end
-}
+	}
+
+	protected void listObjects(){
+		filtra${nomeDoBean}(null);
+	}
+
+	public String explore() {
+		filtra${nomeDoBean}(input.getStringValue("conteudoBusca"));
+		return SUCCESS;
+	}
+
+	protected void filtra${nomeDoBean}(String conteudoBusca) {
+		PaginationSlice<${nomeDoBean}> pagList${nomeDoBean} = ${nomeDoBean}Dao.paginateList(getPageNum(), getPageSize(PAGE_SIZE), conteudoBusca);
+		setOutputPaginationSlice("pagList${nomeDoBean}", pagList${nomeDoBean});
+		output.setValue("conteudoBusca", conteudoBusca);
+	}
+
+
+
+	/*
+	* MOVER PARA O BEAN
+	*/
+	//Aqui é setado tudo que vem da tela.
+	public void fillFromForm(${nomeDoBean} $beanInput) {
+	#foreach($att in $atributoList)
+		#if($atributoChave != $att.nome)
+	    this.set${att.nomeCapitalized}(${beanInput}.get${att.nomeCapitalized}());
+		#end
+	#end
+	}
 }

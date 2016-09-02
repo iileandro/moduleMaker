@@ -36,7 +36,7 @@ public class RolesEnumGenerator {
             CharSequence result = VelocityUtil.getInstance().render(templateFile, context);
 
             System.out.println(GenerateUtils.criaArquivo(result
-                    , "output/src/modules/"+context.get("nomeDoModulo")+((context.get("nomeDoSubmodulo")!=null)?"/"+context.get("nomeDoSubmodulo"):"")
+                    , "output/src/modules/"+context.get("nomeDoModulo")+"/enums"+((context.get("nomeDoSubmodulo")!=null)?"/"+context.get("nomeDoSubmodulo"):"")
                     , context.get("nomeDoModuloCapitalized") + "RolesEnum.java"));
         } catch (Exception e) {
             System.out.println(e);
