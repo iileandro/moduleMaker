@@ -90,7 +90,9 @@
 						#if(${att.showOnExplore} == true)
 							#if($atributoChave != $att.nome)
                         <td>
-                        #if($att.tipo == "Calendar")
+                        #if($att.tipo == "CalendarDATE")
+                            <fpg:valueFormatter object="${${nomeDoBeanUnCapitalized}.${att.nome}}" formatter="date"/>
+                        #elseif($att.tipo == "CalendarTIMESTAMP")
                             <fpg:valueFormatter object="${${nomeDoBeanUnCapitalized}.${att.nome}}" formatter="dateTime"/>
                         #else
                             ${${nomeDoBeanUnCapitalized}.${att.nome}}
