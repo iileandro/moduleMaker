@@ -104,13 +104,6 @@ public class GenerateUtils {
 
             map.putAll(GenerateUtils.listMapBeanElements(nomes, classe));
 
-//            map.put("nomeDoBean", nomes[nomes.length - 1]);
-//            map.put("nomeDaVariavelDoBean", The.uncapitalizedWord(nomes[nomes.length - 1]));
-//            if(classe.isAnnotationPresent(ModuleMakeEntity.class)){
-//                ModuleMakeEntity mme = classe.getAnnotation(ModuleMakeEntity.class);
-//                String entityName = Is.empty(mme.name()) ? nomes[nomes.length - 1] : mme.name();
-//                map.put("entityName", entityName);
-//            }
             beanMapList.add(map);
         }
         return beanMapList;
@@ -138,6 +131,8 @@ public class GenerateUtils {
         }
         String entityName = mme == null ? nomeDoBean : (Is.empty(mme) ? nomeDoBean : mme.name());
         map.put("entityName", entityName);
+
+        map.put("atributoList", GenerateUtils.listMapAtributoTipo(c));
 
         return map;
     }

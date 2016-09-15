@@ -37,13 +37,12 @@
                     altData="dd/mm/aaaa"
                     disabled="false"
                     />
-
         </div>
 
         #else
             #if(${att.createSelect})
                 <div class="ffv inp_${att.nome} gridColumn grid_10 right">
-                    <fpg:Select  selected="${${nomeDoBeanUnCapitalized}.${att.nome}.id}" list="${att.nome}List" defaultText="" name="${att.nome}" id="${att.nome}" />
+                    <fpg:Select  selected="${${nomeDoBeanUnCapitalized}.${att.nome}.id}" list="${att.nome}List" defaultText="Selecione ..." name="${att.nome}" id="${att.nome}" />
                 </div>
             #else
         <div class="ffv inp_${att.nome} gridColumn grid_12 right right middleText">

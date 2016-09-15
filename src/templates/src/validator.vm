@@ -14,35 +14,35 @@ public class ${nomeDoBean}Validator extends Validator {
         if(Is.empty(${nomeDaVariavelDoBean})){
             error("${nomeDaVariavelDoBean}", "Entidade nula.");
         } else {
-            #foreach($att in $atributoList)
-                #if(${att.tipo} == "String")
-                    if(Is.empty(${nomeDaVariavelDoBean}.get${att.nomeCapitalized}())){
-                        error("${att.nome}", "O campo ${att.nameOnForm} está vazio");
-                    }
-                #elseif(${att.tipo} == "int" || ${att.tipo} == "long")
-                    if(${nomeDaVariavelDoBean}.get${att.nomeCapitalized}() < 0){
-                        error("${att.nome}", "O campo ${att.nameOnForm} deve ser maior do que zero");
-                    }
-                #elseif(${att.tipo} == "Integer" ||  ${att.tipo} == "Long")
-                    if(${nomeDaVariavelDoBean}.get${att.nomeCapitalized}() != null){
-                        error("${att.nome}", "O campo ${att.nameOnForm} deve ser informado.");
-                    } else if(${nomeDaVariavelDoBean}.get${att.nomeCapitalized}() < 0){
-                        error("${att.nome}", "O campo ${att.nameOnForm} deve ser maior ou igual a zero.");
-                    }
-                #elseif(${att.tipo} == "boolean")
-                    if(${nomeDaVariavelDoBean}.is${att.nomeCapitalized}() != false){
-                        error("${att.nome}", "O campo ${att.nameOnForm} deve ser informado.");
-                    }
-                #elseif(${att.tipo} == "Calendar" || ${att.tipo} == "Date")
-                    if(${nomeDaVariavelDoBean}.get${att.nomeCapitalized}() != null){
-                        error("${att.nome}", "A data ${att.nameOnForm} deve ser informada.");
-                    }
-                #else
-                    if(${nomeDaVariavelDoBean}.get${att.nomeCapitalized}() != null){
-                        error("${att.nome}", "O campo ${att.nameOnForm} deve ser informado.");
-                    }
-                #end
-            #end
+    #foreach($att in $atributoList)
+        #if(${att.tipo} == "String")
+            if(Is.empty(${nomeDaVariavelDoBean}.get${att.nomeCapitalized}())){
+                error("${att.nome}", "O campo ${att.nameOnForm} está vazio");
+            }
+        #elseif(${att.tipo} == "int" || ${att.tipo} == "long")
+            if(${nomeDaVariavelDoBean}.get${att.nomeCapitalized}() < 0){
+                error("${att.nome}", "O campo ${att.nameOnForm} deve ser maior do que zero");
+            }
+        #elseif(${att.tipo} == "Integer" ||  ${att.tipo} == "Long")
+            if(${nomeDaVariavelDoBean}.get${att.nomeCapitalized}() == null){
+                error("${att.nome}", "O campo ${att.nameOnForm} deve ser informado.");
+            } else if(${nomeDaVariavelDoBean}.get${att.nomeCapitalized}() < 0){
+                error("${att.nome}", "O campo ${att.nameOnForm} deve ser maior ou igual a zero.");
+            }
+        #elseif(${att.tipo} == "boolean")
+            if(${nomeDaVariavelDoBean}.is${att.nomeCapitalized}() != false){
+                error("${att.nome}", "O campo ${att.nameOnForm} deve ser informado.");
+            }
+        #elseif(${att.tipo} == "Calendar" || ${att.tipo} == "Date")
+            if(${nomeDaVariavelDoBean}.get${att.nomeCapitalized}() == null){
+                error("${att.nome}", "A data ${att.nameOnForm} deve ser informada.");
+            }
+        #else
+            if(${nomeDaVariavelDoBean}.get${att.nomeCapitalized}() == null){
+                error("${att.nome}", "O campo ${att.nameOnForm} deve ser informado.");
+            }
+        #end
+    #end
         }
     }
 

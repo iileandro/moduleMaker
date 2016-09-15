@@ -36,10 +36,6 @@ public class ${nomeDoBean}Actions extends ProtectedCrudActions {
 	private final int PAGE_SIZE = 50;
 	private ${nomeDoBean} ${nomeDaVariavelDoBean};
 
-	private void loadSelects(){
-
-	}
-
 	@Transactional
 	@AsynchronousAction(AsynchronousActionType.AJAX)
 	public String create() {
@@ -63,6 +59,15 @@ public class ${nomeDoBean}Actions extends ProtectedCrudActions {
 		return redir("/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=explore");
 	}
 
+	public String explore() {
+		filtra${nomeDoBean}(input.getStringValue("conteudoBusca"));
+		return SUCCESS;
+	}
+
+	protected void listObjects(){
+		filtra${nomeDoBean}(null);
+	}
+
 	@Override
 	protected void restoreObject() {
 		this.${nomeDaVariavelDoBean} = ${nomeDoBean}Dao.getBy${atributoChaveCapitalized}(input.get${atributoChaveTipoCapitalized}Value("${atributoChave}"));
@@ -71,35 +76,25 @@ public class ${nomeDoBean}Actions extends ProtectedCrudActions {
 
 	@Override
 	public void listDependencies() {
-	#foreach($att in $atributoList)
-		#if(${att.createSelect})
-		List ${att.nome}List = ${att.tipo}Dao.listAll();
-		output.setValue("${att.nome}List", ${att.nome}List);
-		#end
-	#end
-	}
-
-	protected void listObjects(){
-		filtra${nomeDoBean}(null);
-	}
-
-	public String explore() {
-		filtra${nomeDoBean}(input.getStringValue("conteudoBusca"));
-		return SUCCESS;
 	}
 
 	protected void filtra${nomeDoBean}(String conteudoBusca) {
 		PaginationSlice<${nomeDoBean}> pagList${nomeDoBean} = ${nomeDoBean}Dao.paginateList(getPageNum(), getPageSize(PAGE_SIZE), conteudoBusca);
 		setOutputPaginationSlice("pagList${nomeDoBean}", pagList${nomeDoBean});
 		output.setValue("conteudoBusca", conteudoBusca);
+	#foreach($att in $atributoList)
+		#if(${att.createSelect})
+		List ${att.nome}List = ${att.tipo}Dao.listAll();
+		output.setValue("${att.nome}List", ${att.nome}List);
+		output.setValue("${att.nome}", ${att.nome});
+		#end
+	#end
 	}
-
-
 
 	/*
 	* MOVER PARA O BEAN
 	*/
-	//Aqui é setado tudo que vem da tela.
+	//Aqui é setado tudo que vem da tela, de forma a passar pelo "set" da entidade
 	public void fillFromForm(${nomeDoBean} $beanInput) {
 	#foreach($att in $atributoList)
 		#if($atributoChave != $att.nome)

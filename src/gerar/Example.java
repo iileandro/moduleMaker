@@ -16,6 +16,7 @@ import creators.web.SubmenuGenerator;
 import creators.web.UpdateGenerator;
 import modules.estoque.beans.ClasseMaterial;
 import modules.estoque.beans.Material;
+import modules.estoque.beans.UnidadeMedida;
 import utils.VelocityInitializer;
 
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class Example {
         ArrayList<String> beanList = new ArrayList();
         beanList.add(Material.class.getName());
         beanList.add(ClasseMaterial.class.getName());
+        beanList.add(UnidadeMedida.class.getName());
         for (String bean : beanList) {
             geraEntidade(bean);
         }

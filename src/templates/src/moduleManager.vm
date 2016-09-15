@@ -5,6 +5,13 @@ import init.Index;
 #foreach($bean in $beanMapList)
 import modules.${nomeDoModulo}.actions#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${bean.nomeDoBean}Actions;
 import modules.${nomeDoModulo}.beans#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${bean.nomeDoBean};
+
+##    #foreach($att in $bean.atributoList)
+##        #if(${att.createSelect})
+##import org.futurepages.filters.PIFilter;
+##        .filter(new PIFilter("${bean.nomeDoBean}","${att.nome}", ${att.tipo}.class), CREATE, UPDATE)
+##        #end
+##    #end
 #end
 import org.futurepages.core.control.AbstractModuleManager;
 import org.futurepages.filters.VOFilter;
@@ -35,15 +42,11 @@ public class ModuleManager extends AbstractModuleManager {
             #foreach($bean in $beanMapList)
         action("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}", ${bean.nomeDoBean}Actions.class)
                 .filter(new VOFilter("${bean.nomeDaVariavelDoBean}", ${bean.nomeDoBean}.class))
-
-##                #foreach($att in $atributoList)
-##                    #if(${att.createSelect})
-##                    import modules.${nomeDoModulo}.dao#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${att.tipo}Dao;
-##                    .filter(new PIFilter("contrato","empresa", Empresa.class), CREATE, UPDATE)
-##                    #end
-##                #end
-
-
+                #foreach($att in $bean.atributoList)
+                    #if(${att.createSelect})
+                .filter(new PIFilter("${bean.nomeDaVariavelDoBean}","${att.nome}", ${att.tipo}.class), CREATE, UPDATE)
+                    #end
+                #end
                 .on(EXPLORE, fwIn("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}-explore.page"))
                 .on(SUCCESS, EXPLORE, fwIn("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}-explore.page"))
                 .on(CREATE, fwIn("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}-create.page"))

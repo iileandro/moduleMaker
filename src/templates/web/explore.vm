@@ -19,6 +19,24 @@
     <h1>Gerência de ${entityName}</h1>
 
     <form method="post" action="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}-explore">
+		#foreach($att in $atributoList)
+			#if(${att.createSelect})
+        <div class="gridRow">
+            <div class="gridColumn grid_6">
+                ${att.nameOnForm}
+            </div>
+            <div class="gridColumn grid_14">
+
+                <div class="ffv inp_${att.nome} gridColumn grid_10 right">
+                    <fpg:Select selected="${${att.nome}.id}" list="${att.nome}List"
+                                defaultText="Selecione ..."
+                                name="${att.nome}" id="${att.nome}"/>
+                </div>
+            </div>
+        </div>
+			#end
+		#end
+
         <div class="gridRow">
             <div class="gridColumn grid_18">
                 <fpg:inputText name="conteudoBusca" defaultText="filtrar contendo as palavras"/>
@@ -28,18 +46,19 @@
             </div>
         </div>
         &nbsp;
-
     </form>
     <div class="clearBoth"></div>
 
     <fpg:set var="paginationDescriptor">
-        <fpg:paginationDescriptor plural="${nomeDoBean}s" singular="${nomeDoBean}" zero="Nenhum ${nomeDoBean}"
+##        <fpg:paginationDescriptor plural="${nomeDoBean}s" singular="${nomeDoBean}" zero="Nenhum ${nomeDoBean}"
+        <fpg:paginationDescriptor plural="Itens" singular="Item" zero="Nenhum Item"
                                   sizes="50,100,200,400" onchange="setPageSize(this)"/>
     </fpg:set>
     <fpg:pagination url="/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}-explore/"
                     params="?pageSize=${pageSize}&conteudoBusca=${conteudoBusca}" descriptor="${paginationDescriptor}">
         <table width="100%" class="plc-table">
             <thead>
+                #set($quantColunas = 1)
 				#foreach($att in $atributoList)
 					#if(${att.showOnExplore} == true)
 						#if($atributoChave != $att.nome)
@@ -48,6 +67,7 @@
 							#else
                             <th>${att.nomeCapitalized}</th>
 							#end
+                            #set($quantColunas = $quantColunas + 1)
 						#end
 					#end
 				#end
@@ -57,7 +77,6 @@
             <fpg:list value="pagList${nomeDoBean}">
                 <fpg:isEmpty>
                     <tr>
-						#set($quantColunas = $atributoList.size() - 1 )
                         <td colspan="$quantColunas" style="text-align:center;height:80px;height: 30px;vertical-align:middle">
                             Nenhum item encontrado.
                         </td>
@@ -70,23 +89,21 @@
 					#foreach($att in $atributoList)
 						#if(${att.showOnExplore} == true)
 							#if($atributoChave != $att.nome)
-                                <td>
-									#if($att.tipo == "Calendar")
-                                        <fpg:valueFormatter object="${${nomeDoBeanUnCapitalized}.${att.nome}}" formatter="dateTime"/>
-									#else
-                                        ${${nomeDoBeanUnCapitalized}.${att.nome}}
-									#end
-                                </td>
+                        <td>
+                        #if($att.tipo == "Calendar")
+                            <fpg:valueFormatter object="${${nomeDoBeanUnCapitalized}.${att.nome}}" formatter="dateTime"/>
+                        #else
+                            ${${nomeDoBeanUnCapitalized}.${att.nome}}
+                        #end
+                        </td>
 							#end
 						#end
 					#end
-
-                    <td class="center" title="Editar">
-                        <a title="Editar"
-                           href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=update&${atributoChave}=${${nomeDoBeanUnCapitalized}.${atributoChave}}"><img
-                                alt="" src="<fpg:themePath/>/icons/edit.png" border="0"/></a>
-                    </td>
-
+                        <td class="center" title="Editar">
+                            <a title="Editar"
+                               href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=update&${atributoChave}=${${nomeDoBeanUnCapitalized}.${atributoChave}}"><img
+                                    alt="" src="<fpg:themePath/>/icons/edit.png" border="0"/></a>
+                        </td>
                     </tr>
                 </fpg:loop>
             </fpg:list>
