@@ -16,7 +16,6 @@
 <div class="conteudo w70">
 	<jsp:include page="/messages/error.jsp" />
 
-
 	<fpg:form id="form${nomeDoBean}" method="get" action="/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}-create" submitLabel="Cadastrar" ajax="true"
 			  cancelLocation="/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=explore" cancelButton="false" resetButton="false" >
 		<jsp:include page="includes/forms/${nomeDoBeanUnCapitalized}.jsp" />

@@ -61,14 +61,12 @@
                 #set($quantColunas = 1)
 				#foreach($att in $atributoList)
 					#if(${att.showOnExplore} == true)
-						#if($atributoChave != $att.nome)
-							#if(${att.nameOnExplore} != "")
-                            <th>${att.nameOnExplore}</th>
-							#else
-                            <th>${att.nomeCapitalized}</th>
-							#end
-                            #set($quantColunas = $quantColunas + 1)
-						#end
+                        #if(${att.nameOnExplore} != "")
+                <th>${att.nameOnExplore}</th>
+                        #else
+                <th>${att.nomeCapitalized}</th>
+                        #end
+                        #set($quantColunas = $quantColunas + 1)
 					#end
 				#end
             <th>Gerência</th>
@@ -88,17 +86,17 @@
                     >
 					#foreach($att in $atributoList)
 						#if(${att.showOnExplore} == true)
-							#if($atributoChave != $att.nome)
+##							#if($atributoChave != $att.nome)
                         <td>
-                        #if($att.tipo == "CalendarDATE")
+                                #if($att.tipo == "CalendarDATE")
                             <fpg:valueFormatter object="${${nomeDoBeanUnCapitalized}.${att.nome}}" formatter="date"/>
-                        #elseif($att.tipo == "CalendarTIMESTAMP")
+                                #elseif($att.tipo == "CalendarTIMESTAMP")
                             <fpg:valueFormatter object="${${nomeDoBeanUnCapitalized}.${att.nome}}" formatter="dateTime"/>
-                        #else
+                                #else
                             ${${nomeDoBeanUnCapitalized}.${att.nome}}
-                        #end
+                                #end
                         </td>
-							#end
+##							#end
 						#end
 					#end
                         <td class="center" title="Editar">

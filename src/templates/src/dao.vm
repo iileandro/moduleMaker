@@ -4,6 +4,7 @@ import java.util.List;
 import modules.${nomeDoModulo}.beans#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${nomeDoBean};
 import org.futurepages.core.pagination.PaginationSlice;
 import org.futurepages.core.persistence.Dao;
+import org.futurepages.util.Is;
 
 /**
  *
@@ -16,12 +17,39 @@ public class ${nomeDoBean}Dao extends Dao {
 	}
 
 	public static List<${nomeDoBean}> listAll(){
+		// Modifique conforme a necessidade
 		return Dao.list(${nomeDoBean}.class, null, null);
 	}
 
-	public static PaginationSlice<${nomeDoBean}> paginateList(int pageNum, int pageSize, String conteudoBusca) {
-		return Dao.paginationSlice(pageNum, pageSize, ${nomeDoBean}.class, null, null);
+	public static PaginationSlice<${nomeDoBean}> paginateList(int pageNum, int pageSize, String conteudoBusca#foreach($att in $atributoList)#if(${att.createSelect}), String ${att.nome}Id#end#end) {
+		// Modifique conforme a necessidade
+		#foreach($att in $atributoList)
+			#if(${att.searchParam})
+		        #set($searchParamExists = true)
+				#break;
+			#end
+		#end
+		String where =
+		#if(${searchParamExists})
+			(!Is.empty(conteudoBusca))?
+				ors(
+		#foreach($att in $atributoList)
+			#if(${att.searchParam})
+					field("${att.nome}").matches(conteudoBusca),
+			#end
+		#end
+					"")
+				:null;
+		#else null;
+		#end
+	#foreach($att in $atributoList)
+		#if(${att.createSelect})
+		${att.nome}Id = (!Is.empty(${att.nome}Id) && !${att.nome}Id.equals("0"))? field("${att.nome}.id").equalsTo(${att.nome}Id): null;
+		#end
+	#end
+
+		where = ands(where#foreach($att in $atributoList)#if(${att.createSelect}), ${att.nome}Id#end#end);
+
+		return Dao.paginationSlice(pageNum, pageSize, ${nomeDoBean}.class, where, null);
 	}
-
 }
-

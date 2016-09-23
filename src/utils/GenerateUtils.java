@@ -71,6 +71,7 @@ public class GenerateUtils {
             String nameOnExplore = "";
             boolean showOnExplore = true;
             boolean createSelect = false;
+            boolean searchParam = false;
             if(f.isAnnotationPresent(ModuleMakeAttribute.class)){
                 ModuleMakeAttribute mma = f.getAnnotation(ModuleMakeAttribute.class);
                 nameOnForm = mma.nameOnForm();
@@ -80,6 +81,7 @@ public class GenerateUtils {
                     tipo = tipo + mma.useCalendarLike().name();
                 }
                 createSelect = mma.createSelect();
+                searchParam = mma.searchParam();
             }
 
             map.put("nome", f.getName());
@@ -89,6 +91,7 @@ public class GenerateUtils {
             map.put("nameOnExplore", nameOnExplore);
             map.put("showOnExplore", showOnExplore);
             map.put("createSelect", createSelect);
+            map.put("searchParam", searchParam);
             atributoList.add(map);
         }
 

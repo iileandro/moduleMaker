@@ -5,13 +5,12 @@ import init.Index;
 #foreach($bean in $beanMapList)
 import modules.${nomeDoModulo}.actions#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${bean.nomeDoBean}Actions;
 import modules.${nomeDoModulo}.beans#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${bean.nomeDoBean};
-
-##    #foreach($att in $bean.atributoList)
-##        #if(${att.createSelect})
-##import org.futurepages.filters.PIFilter;
-##        .filter(new PIFilter("${bean.nomeDoBean}","${att.nome}", ${att.tipo}.class), CREATE, UPDATE)
-##        #end
-##    #end
+#foreach($att in $bean.atributoList)
+        #if(${att.createSelect})
+import org.futurepages.filters.PIFilter;
+            #break
+        #end
+    #end
 #end
 import org.futurepages.core.control.AbstractModuleManager;
 import org.futurepages.filters.VOFilter;

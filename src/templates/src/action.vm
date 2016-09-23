@@ -60,12 +60,17 @@ public class ${nomeDoBean}Actions extends ProtectedCrudActions {
 	}
 
 	public String explore() {
-		filtra${nomeDoBean}(input.getStringValue("conteudoBusca"));
+		#foreach($att in $atributoList)
+			#if(${att.createSelect})
+		String ${att.nome}Id = input.getStringValue("${att.nome}");
+			#end
+		#end
+		filtra${nomeDoBean}(input.getStringValue("conteudoBusca")#foreach($att in $atributoList)#if(${att.createSelect}), ${att.nome}Id#end#end);
 		return SUCCESS;
 	}
 
 	protected void listObjects(){
-		filtra${nomeDoBean}(null);
+		filtra${nomeDoBean}(null#foreach($att in $atributoList)#if(${att.createSelect}), null#end#end);
 	}
 
 	@Override
@@ -76,17 +81,22 @@ public class ${nomeDoBean}Actions extends ProtectedCrudActions {
 
 	@Override
 	public void listDependencies() {
+	#foreach($att in $atributoList)
+		#if(${att.createSelect})
+	    List ${att.nome}List = ${att.tipo}Dao.listAll();
+	    output.setValue("${att.nome}List", ${att.nome}List);
+		#end
+	#end
 	}
 
-	protected void filtra${nomeDoBean}(String conteudoBusca) {
-		PaginationSlice<${nomeDoBean}> pagList${nomeDoBean} = ${nomeDoBean}Dao.paginateList(getPageNum(), getPageSize(PAGE_SIZE), conteudoBusca);
+	protected void filtra${nomeDoBean}(String conteudoBusca#foreach($att in $atributoList)#if(${att.createSelect}), String ${att.nome}Id#end#end) {
+		PaginationSlice<${nomeDoBean}> pagList${nomeDoBean} = ${nomeDoBean}Dao.paginateList(getPageNum(), getPageSize(PAGE_SIZE), conteudoBusca#foreach($att in $atributoList)#if(${att.createSelect}), ${att.nome}Id#end#end);
 		setOutputPaginationSlice("pagList${nomeDoBean}", pagList${nomeDoBean});
 		output.setValue("conteudoBusca", conteudoBusca);
 	#foreach($att in $atributoList)
 		#if(${att.createSelect})
-		List ${att.nome}List = ${att.tipo}Dao.listAll();
-		output.setValue("${att.nome}List", ${att.nome}List);
-		output.setValue("${att.nome}", ${att.nome});
+	    listDependencies();
+			#break
 		#end
 	#end
 	}
