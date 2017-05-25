@@ -102,7 +102,7 @@
                         <td class="center" title="Editar">
                             <a title="Editar"
                                href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${nomeDoBean}?type=update&${atributoChave}=${${nomeDoBeanUnCapitalized}.${atributoChave}}"><img
-                                    alt="" src="<fpg:themePath/>/icons/edit.png" border="0"/></a>
+                                    alt="Editar" src="<fpg:themePath/>/icons/edit.png" border="0"/></a>
                         </td>
                     </tr>
                 </fpg:loop>

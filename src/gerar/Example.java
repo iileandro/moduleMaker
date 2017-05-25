@@ -14,9 +14,15 @@ import creators.web.LayoutGenerator;
 import creators.web.MenuGenerator;
 import creators.web.SubmenuGenerator;
 import creators.web.UpdateGenerator;
-import modules.estoque.beans.ClasseMaterial;
-import modules.estoque.beans.Material;
-import modules.estoque.beans.UnidadeMedida;
+//import modules.estoque.beans.ClasseMaterial;
+//import modules.estoque.beans.Material;
+//import modules.estoque.beans.UnidadeMedida;
+import modules.geral.beans.*;
+import modules.geral.beans.brasil.Cidade;
+import modules.geral.beans.brasil.Estado;
+import modules.geral.beans.brasil.Regiao;
+import modules.tjpi.beans.Funcao;
+import modules.tjpi.beans.TipoFuncao;
 import utils.VelocityInitializer;
 
 import java.util.ArrayList;
@@ -49,9 +55,22 @@ public class Example {
         VelocityInitializer.getInstance().initializeVelocity();
 
         ArrayList<String> beanList = new ArrayList();
-        beanList.add(Material.class.getName());
-        beanList.add(ClasseMaterial.class.getName());
-        beanList.add(UnidadeMedida.class.getName());
+//        beanList.add(Material.class.getName());
+//        beanList.add(ClasseMaterial.class.getName());
+//        beanList.add(UnidadeMedida.class.getName());
+
+//        beanList.add(Regiao.class.getName());
+//        beanList.add(Cidade.class.getName());
+//        beanList.add(Estado.class.getName());
+//        beanList.add(Circulo.class.getName());
+//        beanList.add(Pais.class.getName());
+//        beanList.add(Paroquia.class.getName());
+//        beanList.add(Predio.class.getName());
+//        beanList.add(TipoParentesco.class.getName());
+
+        beanList.add(TipoFuncao.class.getName());
+        beanList.add(Funcao.class.getName());
+
         for (String bean : beanList) {
             geraEntidade(bean);
         }

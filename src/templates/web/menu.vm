@@ -4,7 +4,7 @@
 	<span>${nomeDoModuloCapitalized}</span>
 	<ul>
             #foreach($bean in $beanMapList)
-            <li>
+            <li><span class="fa fa-angle-right"></span>
                 <a href="<fpg:contextPath/>/${nomeDoModulo}#if($nomeDoSubmodulo)/$nomeDoSubmodulo#end/${bean.nomeDoBean}?type=explore">${bean.entityName}</a>
             </li>
             #end

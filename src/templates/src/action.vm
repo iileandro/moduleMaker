@@ -1,6 +1,5 @@
 package modules.${nomeDoModulo}.actions#if($nomeDoSubmodulo).$nomeDoSubmodulo#end;
 
-import org.futurepages.util.StringUtils;
 import modules.admin.services.LogServices;
 import modules.admin.enums.LogType;
 import modules.sistema.actions.core.SistemaAC;
@@ -108,7 +107,7 @@ public class ${nomeDoBean}Actions extends ProtectedCrudActions {
 	public void fillFromForm(${nomeDoBean} $beanInput) {
 	#foreach($att in $atributoList)
 		#if($atributoChave != $att.nome)
-	    this.set${att.nomeCapitalized}(${beanInput}.get${att.nomeCapitalized}());
+	    this.set${att.nomeCapitalized}(${beanInput}#if(${att.tipo} == "boolean").is#else.get#end${att.nomeCapitalized}());
 		#end
 	#end
 	}

@@ -1,6 +1,5 @@
 package modules.${nomeDoModulo};
 
-
 import init.Index;
 #foreach($bean in $beanMapList)
 import modules.${nomeDoModulo}.actions#if($nomeDoSubmodulo).$nomeDoSubmodulo#end.${bean.nomeDoBean}Actions;
@@ -20,16 +19,13 @@ import org.futurepages.filters.VOFilter;
  */
 public class ModuleManager extends AbstractModuleManager {
 
-
 	@Override
     public void loadDependencies() {
 		integrationModule();
 	}
 
-
     @Override
     public void loadActions() {
-
         action(Index.class);
 
         #if($nomeDoSubmodulo)

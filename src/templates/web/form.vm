@@ -11,7 +11,7 @@
 #foreach($att in $atributoList)
     #if($atributoChave != $att.nome)
     <div class="gridRow">
-        <div class="ffv lb_${att.nome} gridColumn grid_2 right right middleText">
+        <div class="ffv lb_${att.nome} gridColumn grid_2 right middleText">
         #if(${att.nameOnForm} != "")
             <label>${att.nameOnForm}</label>
         #else
@@ -38,7 +38,10 @@
                     disabled="false"
                     />
         </div>
-
+        #elseif($att.tipo == "boolean")
+        <div class="ffv inp_${att.nome} gridColumn grid_4 right middleText">
+            <fpg:checkBox path="${nomeDoBeanUnCapitalized}" id="${att.nome}" name="${att.nome}"/>Ativo</label>
+        </div>
         #else
             #if(${att.createSelect})
                 <div class="ffv inp_${att.nome} gridColumn grid_10 right">
