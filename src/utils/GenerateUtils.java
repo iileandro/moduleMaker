@@ -67,6 +67,9 @@ public class GenerateUtils {
             HashMap map = new HashMap();
             String tipo = f.getType().getSimpleName();
 
+            if(f.getName().equalsIgnoreCase("sigla")){
+                System.out.println("parada");
+            }
             String nameOnForm = "";
             String nameOnExplore = "";
             boolean showOnExplore = true;

@@ -28,13 +28,14 @@ public class ModuleManager extends AbstractModuleManager {
     public void loadActions() {
         action(Index.class);
 
-        #if($nomeDoSubmodulo)
-            $nomeDoSubmodulo();
-            }
-            $nomeDoSubmodulo(){
-        #end
+    #if($nomeDoSubmodulo)
+        $nomeDoSubmodulo();
+    }
 
-            #foreach($bean in $beanMapList)
+    private void $nomeDoSubmodulo(){
+    #end
+
+    #foreach($bean in $beanMapList)
         action("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}", ${bean.nomeDoBean}Actions.class)
                 .filter(new VOFilter("${bean.nomeDaVariavelDoBean}", ${bean.nomeDoBean}.class))
                 #foreach($att in $bean.atributoList)
@@ -47,9 +48,9 @@ public class ModuleManager extends AbstractModuleManager {
                 .on(CREATE, fwIn("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}-create.page"))
                 .on(UPDATE, fwIn("#if($nomeDoSubmodulo)$nomeDoSubmodulo/#end${bean.nomeDoBean}-update.page"))
                 ;
-            #end
-        #if($nomeDoSubmodulo)
-            }
-        #end
+    #end
+    #if($nomeDoSubmodulo)
+        }
+    #end
 	}
 }

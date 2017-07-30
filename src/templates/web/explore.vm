@@ -58,17 +58,19 @@
                     params="?pageSize=${pageSize}&conteudoBusca=${conteudoBusca}" descriptor="${paginationDescriptor}">
         <table width="100%" class="plc-table">
             <thead>
-                #set($quantColunas = 1)
-				#foreach($att in $atributoList)
-					#if(${att.showOnExplore} == true)
-                        #if(${att.nameOnExplore} != "")
-                <th>${att.nameOnExplore}</th>
-                        #else
-                <th>${att.nomeCapitalized}</th>
+                <tr>
+                    #set($quantColunas = 1)
+                    #foreach($att in $atributoList)
+                        #if(${att.showOnExplore} == true)
+                            #if(${att.nameOnExplore} != "")
+                    <th>${att.nameOnExplore}</th>
+                            #else
+                    <th>${att.nomeCapitalized}</th>
+                            #end
+                            #set($quantColunas = $quantColunas + 1)
                         #end
-                        #set($quantColunas = $quantColunas + 1)
-					#end
-				#end
+                    #end
+                </tr>
             <th>Gerência</th>
             </thead>
             <tbody>
